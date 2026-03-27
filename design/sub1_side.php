@@ -1,0 +1,258 @@
+<?php include('header2.php')?>
+
+<style>
+	.sub_wrap {overflow: hidden}
+	.side_banner {float: left;width:205px;text-align: center}
+	.side_banner h1 {font-size:26px;padding-bottom:20px; font-weight:400; display:block;text-align: left}
+	.sub_contents {width:1055px; float: left;margin-left:20px}
+	.sub_contents h1 {font-size:26px;padding-bottom:20px; font-weight:400; display:block}
+	.mypage_side {border:4px solid #d9d9d9;margin-bottom:10px;text-align: left}
+	.mypage_side ul {padding:20px 30px;border-bottom:1px solid #d9d9d9}
+	.mypage_side ul h4 a {line-height:28px;font-weight:500; }
+	.mypage_side ul li {padding-left:10px;line-height:28px}
+	.mypage_side ul li a:hover {font-weight:500; color:#2a539a}
+	.mypage_side img {vertical-align: middle;padding-bottom:4px}
+	
+	/* mix list */
+	.sub_contents .mypage_table {border-top:2px solid #111;}
+	.sub_contents .mypage_table th {font-size:13px; font-weight:600; line-height: 44px;}
+	.sub_contents .mypage_table tr th,.sub_contents .mypage_table tr td {border-bottom:1px solid #d9d9d9;text-align:center;}
+	.sub_contents .mypage_table tr td {padding:10px 0}
+	.sub_contents .mypage_table tr td img {vertical-align: middle;margin:0 5px}
+	.sub_contents .mypage_table tr td:nth-child(2) {text-align:center; }
+	.sub_contents .mypage_table tr td:last-child {font-weight:500}
+	
+	/*.sub_contents .mypage_table tr td:nth-child(2):after {content:url(http://image.mrlotto.co.kr/new.jpg);position: relative;width:100px; height:100px;top:3px;left:15px;}*/
+	
+	.sub_contents .mypage_table .paging ul {overflow: hidden;}
+	.sub_contents .mypage_table .paging a {color: inherit;text-decoration: none;float:left;border:1px solid #d9d9d9;margin-left:-1px;width:30px;height:30px;text-align: center}
+	.sub_contents .mypage_table .paging {width:205px;margin:0 auto;margin-top:30px}
+	.sub_contents .mypage_table .paging li:first-child a {border-radius: 4px 0px 0px 4px;margin-left:0;color:#d9d9d9}
+	.sub_contents .mypage_table .paging li:last-child a {border-radius: 0px 4px 4px 0px;color:#d9d9d9}
+	.sub_contents .mypage_table .paging a:hover {color:#2a539a !important;font-weight:500; border-bottom:2px solid #2a539a}
+	
+	.mix_contents {border:4px solid #d9d9d9;margin-bottom:20px; display:flex; }
+	.mix_contents ul {padding:35px 70px}
+	.mix_contents ul:first-child {width:694px;flex:3;border-right:1px solid #d9d9d9;}
+	.mix_contents ul:first-child li table tr:first-child td:nth-child(4) span, .mix_contents ul:first-child li table tr:first-child td:nth-child(5) span {font-size:20px;font-weight:500; background-color:#f8f8f8;border-radius: 100px;padding:10px}
+	.mix_contents ul:first-child li table tr:last-child td:first-child span {font-size:28px; color:#2a539a;font-weight:400;padding-right:5px;}
+	.mix_contents ul:first-child li table tr:last-child td span {font-weight:400;padding-right:5px;}
+	.mix_contents ul:first-child li table tr:last-child td {font-size:18px}
+	
+	.mix_contents ul:last-child {width:480px; background-color:#f8f8f8;flex:2}
+	.mix_contents ul li table tr td {vertical-align: middle; text-align: center}
+	.mix_contents ul:last-child li table tr td {font-size:20px;line-height:64px;}
+	.mix_contents ul:last-child li table tr td:first-child {text-align:left; font-weight:400; font-size:18px}
+	.mix_contents ul:last-child li table tr td:last-child {text-align:right}
+	.mix_contents ul:last-child li table tr td:last-child span {font-weight:500; padding-right:10px;letter-spacing: 0}
+	.mix_contents ul:last-child li table tr:last-child td span {color:#2a539a; letter-spacing: 0}
+	
+	.mix_contents ul li table tr td {}
+	
+	.class1 img {width:35px; height:40px}
+	.class2 img, .class3 img {width:35px; height:39px}
+
+
+	/* coupon list */
+	#coupon_list tr td:nth-child(2) {font-weight:400 !important;}
+	#coupon_list tr td:nth-child(4) {letter-spacing: 0}
+	#coupon_list button {border-radius: 4px;width:100px;height:35px;font-size:13px;color:#fff;background: rgb(42,83,154);background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border:none;font-weight:400;cursor: pointer}
+	#coupon_list .coupon_date {color:#2a539a; font-weight:400}
+	#coupon_list tr td:nth-child(3) span {padding-left:3px;color:#999 !important; font-size:15px; letter-spacing: 0}
+	#coupon_list .coupon_end {background-color:#f8f8f8; color:#aaa;}
+	#coupon_list .coupon_end td:last-child button {background:#d3d3d3 !important; color:#888; font-weight:400}
+	
+	.coupon_tab, .mypage_tab {margin-bottom:10px}
+	.coupon_tab button, .mypage_tab button {width:193px; height:50px;cursor: pointer;text-align:center;border-radius: 4px;color:#111;font-size:18px;font-weight: 400;border:1px solid #d9d9d9;background-color:#fff}
+	.coupon_tab button.on {width:193px; height:50px;cursor: pointer;text-align:center;background: rgb(42,83,154);
+background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border-radius: 4px;color:#fff;font-size:18px;font-weight: 300; border:none;padding-left:15px;position: relative}
+	.coupon_tab button.on:before {position: absolute;content: '';background:url('http://image.mrlotto.co.kr/arrow.png') no-repeat;top:21px;left:35px; height:30px;width:60px;}
+	.coupon_tab button.on2 {width:193px; height:50px;cursor: pointer;text-align:center;background: rgb(42,83,154);
+background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border-radius: 4px;color:#fff;font-size:18px;font-weight: 300; border:none;padding-left:15px;position: relative}
+	.coupon_tab button.on2:before {position: absolute;content: '';background:url('http://image.mrlotto.co.kr/arrow.png') no-repeat;top:21px;left:53px; height:30px;width:60px;}
+	
+	.mypage_tab button.on {width:193px; height:50px;cursor: pointer;text-align:center;background: rgb(42,83,154);
+background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border-radius: 4px;color:#fff;font-size:18px;font-weight: 300; border:none;padding-left:15px;position: relative}
+	.mypage_tab button.on:before {position: absolute;content: '';background:url('http://image.mrlotto.co.kr/arrow.png') no-repeat;top:21px;left:53px; height:30px;width:60px;}
+	.mypage_tab button.on2 {width:193px; height:50px;cursor: pointer;text-align:center;background: rgb(42,83,154);
+background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border-radius: 4px;color:#fff;font-size:18px;font-weight: 300; border:none;padding-left:15px;position: relative}
+	.mypage_tab button.on2:before {position: absolute;content: '';background:url('http://image.mrlotto.co.kr/arrow.png') no-repeat;top:21px;left:53px; height:30px;width:60px;}
+	
+	
+	.coupon_register {background-color: #edeef3;padding:110px 265px 100px 265px}
+	.coupon_register input {width:100%;height:46px; padding-left:10px;font-size:13px;border-radius: 4px; border:none}
+	.coupon_register button {margin:0 auto;margin-top:30px;display:block;text-align:center;background: rgb(42,83,154);
+background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);width:246px; height:60px;border-radius: 4px;color:#fff;font-size:24px;cursor: pointer;border:none}
+
+
+	/* servie list */
+	#service_list tr td:last-child {;background-color: #f8f8f8; font-weight:300; letter-spacing: 0}
+	#service_list tr td:first-child {letter-spacing: 0}
+	#service_list tr td span {color:#2a539a !important; letter-spacing: 0}
+	#service_list tr td:nth-child(3) {letter-spacing: 0;}
+
+	/* servie2 list */
+	#service_list2 tr td:first-child, #service_list2 tr td:last-child, #service_list2 tr td span, #service_list2 tr td:nth-child(3) {font-weight:300; letter-spacing: 0}
+	
+	
+	/* modify2 */
+	.modify1 {background-color: #f8f8f8;padding:55px 315px 100px 315px; }
+	.modify1 table tr td:first-child {font-weight:400}
+	.modify1 input {width:380px; height:46px; border:1px solid #d9d9d9;padding-left:10px;font-size:13px}
+	.modify1 button {margin:0 auto;margin-top:50px;display:block;text-align:center;background: rgb(42,83,154);
+background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);width:193px; height:50px;border-radius: 4px;color:#fff;font-size:18px;cursor: pointer;border:none}
+	.modify1 input.email {width:160px; }
+	.modify1 select {width:193px; height:46px;border:1px solid #d9d9d9;padding-left:10px;font-size:13px;background-color:#fff; border-radius: 0}
+	
+	select{
+	-moz-appearance:none; /* Firefox */ 
+	-webkit-appearance:none; /* Safari and Chrome */ 
+	appearance:none;
+	background:url('http://image.mrlotto.co.kr/select_icon.png') 93% 50% no-repeat;
+	}
+	select::-ms-expand { display:none; }
+	
+	
+	/* modify1 */
+	.modify2 {padding:90px 200px 100px 200px; }
+	.modify2 input {width:382px; height:46px;}
+	.modify2 table {background-color:#f8f8f8; padding:40px 80px;}
+	.modify2 .txt {font-size:20px; text-align: center; margin-bottom:20px}
+	.modify2 table tr td:first-child {font-weight:400;}
+	.modify2 table tr td:last-child button {font-weight:400;background: rgb(42,83,154);background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);height:46px; border:none; color:#fff; width:100px; border-radius: 4px; font-size:15px;margin-left:5px;cursor: pointer}
+	
+	
+	/* withdraw1 */
+	.withdraw1 {padding:90px 200px 100px 200px; }
+	.withdraw1 input {width:382px; height:46px;border-radius: 4px;border: none;padding-left:10px;font-size:15px;line-height:44px}
+	.withdraw1 table {background-color:#f8f8f8; padding:40px 80px;}
+	.withdraw1 .txt {font-size:20px; text-align: center; margin-bottom:20px}
+	.withdraw1 table tr td:first-child {font-weight:400;}
+	.withdraw1 table tr td:last-child button {font-weight:400;background: rgb(42,83,154);background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);height:46px; border:none; color:#fff; width:100px; border-radius: 4px; font-size:15px;margin-left:5px;cursor: pointer}
+	
+	/* withdraw2 */
+	.withdraw2 {padding:20px 218px 100px 218px; }
+	.withdraw2 table {margin:0 auto;text-align:center; padding:40px 100px; }
+	.withdraw2 table tr td:first-child {font-weight:400}
+	.withdraw2 table tr:last-child td:last-child {font-weight:400; padding-left:10px;}
+	.withdraw2 input {width:380px; height:46px; border:1px solid #d9d9d9;padding-left:10px;font-size:13px}
+	.withdraw2 button {margin:0 auto;margin-top:50px;display:block;text-align:center;background: rgb(42,83,154);
+background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);width:193px; height:50px;border-radius: 4px;color:#fff;font-size:18px;cursor: pointer;border:none}
+	.withdraw2 input.email {width:160px; }
+	.withdraw2 select {width:193px; height:46px;border:1px solid #d9d9d9;padding-left:10px;font-size:13px;background-color:#fff; border-radius: 0}
+	.withdraw_txt {text-align:center; font-size:24px;font-weight:500;color:#2a539a;border:4px solid #d9d9d9;padding:32px 0}
+	.withdraw_txt span {text-align:center; font-size:18px; color:#111;padding-left:5px}
+	
+	
+	/* stats list */
+	.ps {font-size:13px;margin-top:10px;color:#8d8d8d}
+	.ps a {color:#2a539a;letter-spacing: 0}
+	.stats1_tab {margin-bottom:10px}
+	.stats1_tab a {display: inline-block;width:193px; height:50px;cursor: pointer;text-align:center;border-radius: 4px;color:#111;font-size:18px;font-weight: 400;border:1px solid #d9d9d9;background-color:#fff;padding-top:12px}
+	.stats1_tab a.on {display: inline-block;width:193px; height:50px;cursor: pointer;text-align:center;background: rgb(42,83,154);
+background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border-radius: 4px;color:#fff;font-size:18px;font-weight: 300; border:1px solid #2a5aad;padding-left:15px;position: relative}
+	.stats1_tab a.on:before {position: absolute;content: '';background:url('http://image.mrlotto.co.kr/arrow.png') no-repeat;top:21px;left:62px; height:30px;width:60px;}
+	.stats1_tab a.on2 {width:193px; height:50px;cursor: pointer;text-align:center;background: rgb(42,83,154);
+background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border-radius: 4px;color:#fff;font-size:18px;font-weight: 300; border:1px solid #2a5aad;padding-left:15px;position: relative;}
+	.stats1_tab a.on2:before {position: absolute;content: '';background:url('http://image.mrlotto.co.kr/arrow.png') no-repeat;top:21px;left:46px; height:30px;width:60px;}
+	
+	.stats2_tab {margin-bottom:10px}
+	.stats2_tab a {display: inline-block;width:193px; height:50px;cursor: pointer;text-align:center;border-radius: 4px;color:#111;font-size:18px;font-weight: 400;border:1px solid #d9d9d9;background-color:#fff;padding-top:12px}
+	.stats2_tab a.on {display: inline-block;width:193px; height:50px;cursor: pointer;text-align:center;background: rgb(42,83,154);
+background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border-radius: 4px;color:#fff;font-size:18px;font-weight: 300; border:1px solid #2a5aad;padding-left:15px;position: relative}
+	.stats2_tab a.on:before {position: absolute;content: '';background:url('http://image.mrlotto.co.kr/arrow.png') no-repeat;top:21px;left:60px; height:30px;width:60px;}
+	.stats2_tab a.on2 {width:193px; height:50px;cursor: pointer;text-align:center;background: rgb(42,83,154);
+background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border-radius: 4px;color:#fff;font-size:18px;font-weight: 300; border:1px solid #2a5aad;padding-left:15px;position: relative;}
+	.stats2_tab a.on2:before {position: absolute;content: '';background:url('http://image.mrlotto.co.kr/arrow.png') no-repeat;top:21px;left:53px; height:30px;width:60px;}
+	
+	.sub_contents .stats_table {border-top:2px solid #111;}
+	.sub_contents .stats_table th {font-size:13px; font-weight:600; line-height: 44px;}
+	.sub_contents .stats_table tr th,.sub_contents .stats_table tr td {border-bottom:1px solid #d9d9d9;text-align:center;}
+	.sub_contents .stats_table tr td {padding:10px 0}
+	.sub_contents .stats_table tr td img {vertical-align: middle;margin:0 5px}
+	.sub_contents .stats_table tr td:nth-child(2) {text-align:center; }
+	.sub_contents .stats_table tr td:last-child {font-weight:500}
+	
+	#stats1_list tr td:nth-child(2) {text-align: left; width:500px;}
+	/*.sub_contents .mypage_table tr td:nth-child(2):after {content:url(http://image.mrlotto.co.kr/new.jpg);position: relative;width:100px; height:100px;top:3px;left:15px;}*/
+	#stats3_list tr td:nth-child(2) {text-align:center;}
+	
+	#stats4_list tr td:nth-child(2) {text-align:center;}
+	
+	#stats4_list tr td:nth-child(2), #stats5_list tr td:nth-child(2) {letter-spacing: 0}
+	#stats5_list tr td:nth-child(3) span {padding:0 10px; font-weight:400}
+	
+	.sub_contents .stats_table .paging ul {overflow: hidden;}
+	.sub_contents .stats_table .paging a {color: inherit;text-decoration: none;float:left;border:1px solid #d9d9d9;margin-left:-1px;width:30px;height:30px;text-align: center}
+	.sub_contents .stats_table .paging {width:205px;margin:0 auto;margin-top:30px}
+	.sub_contents .stats_table .paging li:first-child a {border-radius: 4px 0px 0px 4px;margin-left:0;color:#d9d9d9}
+	.sub_contents .stats_table .paging li:last-child a {border-radius: 0px 4px 4px 0px;color:#d9d9d9}
+	.sub_contents .stats_table .paging a:hover {color:#2a539a !important;font-weight:500; border-bottom:2px solid #2a539a}
+	.stats1_title {background-color:#f8f8f8;line-height:44px;padding-left:15px;margin-bottom:10px}
+	.stats1_title select {line-height:22px;background-color:#fff; width:60px;padding-left:5px;border-radius: 0;vertical-align: top;margin-top:12px;color:#111 !important; font-size:13px;font-weight: 300;border: none}
+	.stats1_title a {border-radius: 4px;width:50px;height:25px;font-size:13px;color:#111;background:#fff;border:1px solid #111;border:1px solid #111;font-weight:300; margin-left:15px;cursor: pointer;vertical-align: top;margin-top:12px;font-weight: 400;padding:2px 10px}
+	
+	.stats2_title, .stats3_title {background-color:#f8f8f8;line-height:44px;padding-left:15px;margin-bottom:10px; }
+	.stats2_title select, .stats3_title select {line-height:22px;background-color:#fff; width:120px;padding-left:5px;border-radius: 0;vertical-align: top;margin-top:12px;color:#111 !important; font-size:13px;font-weight: 300;border: none}
+	.stats2_title a, .stats3_title a {border-radius: 4px;width:50px;height:25px;font-size:13px;color:#111;background:#fff;border:1px solid #111;border:1px solid #111;font-weight:300; margin-left:15px;cursor: pointer;vertical-align: top;margin-top:11px;font-weight: 400;padding:2px 10px}
+	
+	.circle_chart {border:1px solid #d9d9d9; margin:20px 0 10px 0; padding:60px 100px; text-align: center}
+	
+	.graph1 {width:100%; background-color:#f4c300;height:8px}
+	.graph2 {width:80%; background-color:#0076d7;height:8px}
+	.graph3 {width:100%; background-color:#d6402a;height:8px}
+	.graph4 {width:97%; background-color:#575353;height:8px}
+	.graph5 {width:40%; background-color:#1f9c1a;height:8px}
+	
+	.side_label {border:1px solid #d9d9d9;border-top:2px solid #111;}
+	.side_label ul li {border-bottom:1px solid #d9d9d9;padding-bottom:20px} 
+	.side_label ul li:last-child {border:none}
+</style>
+
+	
+	<!--sub title start-->
+	<div class="sub_wrap">
+		<div class="side_banner">
+			<h1>분석 시스템</h1>
+			<div class="mypage_side">
+				<ul>
+					<h4><a href="/design/sub1.php">분석 시스템 소개&nbsp;&nbsp;<img src="http://image.mrlotto.co.kr/more.jpg"></a></h4>
+				</ul>
+				<ul>
+					<h4><a href="/design/sub1_stats1.php">당첨 통계&nbsp;&nbsp;<img src="http://image.mrlotto.co.kr/more.jpg"></a></h4>
+					<li><a href="/design/sub1_stats1.php">번호별 통계</a></li>
+					<li><a href="/design/sub1_stats6.php">색상 통계</a></li>
+					<li><a href="/design/sub1_stats2.php">구간별 출현횟수</a></li>
+					<li><a href="/design/sub1_stats3.php">기간별 미출현 번호</a></li>
+					<li><a href="/design/sub1_stats4.php">홀짝 통계</a></li>
+					<li><a href="/design/sub1_stats5.php">연속번호 출현</a></li>
+				</ul>
+			</div>
+			<!--img src="http://image.mrlotto.co.kr/sub_side_banner.jpg"-->
+			<!--div><class="side_label"-->
+				<!--ul>
+					<li><a href="#"  onclick="window.open('http://image.mrlotto.co.kr/quality.jpg','','width=600,height=814,scrollbars=no,top=30,left=30');"><img src="http://image.mrlotto.co.kr/emblem1.png" style="width:90%;margin:15px 0;padding:10px 10px 0 10px;"></a>
+					<p>믿고 이용할 수 있는<br><span style="font-weight:500">서비스 품질 책임제</span></p></li>
+					<li><a href="#"  onclick="window.open('http://image.mrlotto.co.kr/guarantee.jpg','','width=600,height=857,scrollbars=no,top=30,left=30');"><img src="http://image.mrlotto.co.kr/emblem2.png" style="width:70%;padding:20px 10px 10px 10px;"></a><p>신뢰를 우선으로 하는<br><span style="font-weight:500">환불 보증제</span></p></li>
+				</ul-->
+				
+				<!--ul>
+						<li><a href="#"  onclick="window.open('http://image.mrlotto.co.kr/quality.jpg','','width=600,height=814,scrollbars=no,top=30,left=30');"><img src="http://image.mrlotto.co.kr/side1.jpg"></a></li>
+						<li><a href="#"  onclick="window.open('http://image.mrlotto.co.kr/guarantee.jpg','','width=600,height=857,scrollbars=no,top=30,left=30');"><img src="http://image.mrlotto.co.kr/side2.jpg"></a></li>
+						<li style="margin-bottom:7px">
+							<img src="http://image.mrlotto.co.kr/side3.jpg">
+							<input type="text" style="display: block; width: 130px;padding-left:5px;margin: 0 auto;height: 30px;line-height: 30px;font-size:14px;box-sizing: border-box; margin-bottom:5px;border: 1px solid #999" placeholder="- 제외하고 입력">
+							<a href=""><img src="http://image.mrlotto.co.kr/side3_bt.jpg"></a>
+						</li>
+						<li><img src="http://image.mrlotto.co.kr/side4.jpg"></li>
+						<li style="margin:7px 0"><a href="http://www.mrlotto.co.kr/design/notice_list.php"><img src="http://image.mrlotto.co.kr/side5.jpg"></a></li>
+						<li><a href="http://www.mrlotto.co.kr/member/login.php"><img src="http://image.mrlotto.co.kr/side6.jpg"></a></li>
+						<li style="margin:7px 0"><a href="http://www.mrlotto.co.kr/bbs/board_v.php?dep=e&page=1&uid=13"><img src="http://image.mrlotto.co.kr/side7.jpg"></a></li>
+						<!--li><img src="http://image.mrlotto.co.kr/side8.jpg"></li->
+					</ul>
+			</div-->
+		</div>
+		<div class="sub_contents">
+		
+		
+		

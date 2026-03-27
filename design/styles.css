@@ -1,0 +1,248 @@
+/* @override 
+	http://localhost/bx/bxslider/css/styles.css
+*/
+#content_inner {
+	width: 490px;
+	margin: 0 auto;
+	position: relative;
+	z-index: 999;
+	
+}
+
+#content #intro {
+	border-bottom: dotted #ccc 1px;
+	padding-bottom: 28px;
+	margin-bottom: 10px;
+}
+
+#content #intro p {
+	font-size: 14px;
+	color: #8f8f8f;
+	line-height: 22px;
+	padding-bottom: 5px;
+}
+
+#content #intro a {
+	color: #666;
+	padding: 6px;
+}
+
+#content #intro a:hover {
+	background: #eee;
+	text-decoration: none;
+	border-bottom: dotted #ccc 1px;
+}
+
+#content #intro ul {
+	padding-bottom: 15px;
+	padding-top: 3px;
+}
+
+#content #intro li {
+	color: #8f8f8f;
+	margin-left: 50px;
+	padding-bottom: 4px;
+	font-size: 14px;
+}
+
+#content p {
+	font-size: 12px;
+	color: #8f8f8f;
+	padding-bottom: 10px;
+}
+
+#content p a {
+	color: #e41996;
+}
+
+#content h2 {
+	font-size: 26px;
+	font-weight: normal;
+	color: #666;
+	padding-bottom: 17px;
+	border-top: dotted #ccc 1px;
+	padding-top: 20px;
+	padding-bottom: 21px;
+	margin-top: 13px;
+}
+
+#content h2 span {
+	font-size: 20px;
+}
+
+#content #css3 {
+	float: right;
+}
+
+#content #css3 a:hover {
+	background: none;
+	border: 0;
+}
+
+.pre_wrap {
+	background: #f9f9f9;
+	padding: 5px 5px 5px 14px;
+	margin-bottom: 33px;
+	margin-top: 32px;
+}
+
+.pre_wrap span.label {
+	color: #999;
+	font-size: 12px;
+	font-style: italic;
+	display: block;
+	padding-left: 5px;
+	padding-top: 5px;
+}
+
+.syntaxhighlighter {
+	font-size: 12px;
+}
+
+.slides1_wrap {
+	position: relative;
+	margin:0 auto;
+	width:490px;
+	
+}
+
+#slides1 {
+	overflow: hidden;
+	height: 211px;
+}
+
+#slides1 li {
+	list-style: none;
+	/*width: 589px;*/
+}
+
+/*slides1 li img {
+	float: left;
+}
+*/
+#slides1 .content {
+	float: left;
+	width: 350px;
+	padding-left: 21px;
+}
+
+#slides1 li p {
+	line-height: 22px;
+}
+
+#slides1 h3 {
+	font-size: 36px;
+	color: #8d8d8d;
+	font-weight: normal;
+	text-transform: lowercase;
+}
+
+#slides1 h4 {
+	font-size: 18px;
+	color: #000;
+	font-style: italic;
+	font-weight: normal;
+	text-transform: lowercase;
+	padding-bottom: 16px;
+}
+
+.slides1_wrap .prev {
+	position: absolute;
+	left: 0px;
+	top: 100px;
+	outline: 0;
+}
+
+.slides1_wrap .next {
+	position: absolute;
+	right: 11px;
+	top: 100px;
+	outline: 0;
+}
+
+.slides1_wrap a:active {
+	top: 102px;
+}
+
+/*.bx_pager {
+	padding-left: 309px;
+	padding-top: 15px;
+}
+
+.bx_pager a {
+	float: left;
+	background: url(http://image.mrlotto.co.kr/main_lotto_right.jpg) no-repeat 0 -21px;
+	width: 14px;
+	height: 17px;
+	color: #fff;
+	font-size: 11px;
+	margin-right: 6px;
+	padding: 4px 0 0 7px;
+}
+
+.bx_pager a:hover, .bx_pager a.active {
+	background-position: 0 0;
+	text-decoration: none;
+}
+.auto_controls {
+	position: absolute;
+	bottom: -11px;
+	left: 394px;
+}
+
+.auto_controls a {
+	font-size: 16px;
+	color: #a3a3a3;
+	outline: 0;
+	padding: 2px;
+}
+
+.auto_controls a:hover {
+	text-decoration: none;	
+	background: ;
+	color: #e41996;
+}
+*/
+
+#content #notes li, #content #changes li {
+	font-size: 12px;
+	color: #8f8f8f;
+	margin-left: 43px;
+	padding-bottom: 6px;
+}
+
+#content #notes li a {
+	color: #e41996;
+}
+
+#idc-container a {
+	color: #e41996;	
+}
+
+#idc-container h3 {
+	color: #666;
+}
+#slides1 li {color:#fff;letter-spacing:-1px}
+#slides1 li div:last-child {color:#333}
+#slides1 li div:first-child span:first-child {color:#fff;font-weight:500;font-size:30px;padding-left:6px}
+#slides1 li div:first-child span:last-child {color:#8d8d8d;padding-left:20px}
+#slides1 li div.main_lotto_ball {width:426px;margin:0 auto; display:inline-block;margin-left:38px;margin-top:63px}
+#slides1 li div.main_lotto_ball img {margin-right:15px; width:37px; height:37px;}
+
+#slides1 li div.main_lotto_ball img.plus {width:16px; height:15px;vertical-align:top;margin-top:12px;}
+
+
+/*#slides1 li div.main_lotto_win {font-size:16px;margin-top:20px}
+#slides1 li div.main_lotto_win span {font-weight:300;}
+.main_lotto_win-box1 {margin-right:10px}
+.main_lotto_win-box2 {margin-left:30px}
+.main_lotto_win-box1, .main_lotto_win-box2 {background-color:#8d8d8d;color:#fff; border-radius:4px;padding:3px 7px;}
+#slides1 li div.main_lotto_win .main_lotto_person,#slides1 li .main_lotto_win .main_lotto_money {padding:0px 3px 0 0;font-size:24px;color:#2a539a;font-weight: 400;}
+/*.main_lotto_person {display:inline-block;color:#2a539a !important;font-weight:400;text-align:center;background:url(http://image.mrlotto.co.kr/number_box.jpg) no-repeat;width:23px; height:27px;margin-right:1px}*/
+/*.main_lotto_money div ul li, .main_lotto_person div ul li {color:#2a539a !important;font-weight:400;text-align:center;background:url(http://image.mrlotto.co.kr/number_box.jpg) 0 10px no-repeat;width:23px; height:27px;margin-right:1px;}
+.main_lotto_money div ul li.com {width:10px; background:none}*/
+
+.main_lotto_win ul li {display: inline-block;margin-top:20px}
+.main_lotto_awards, .main_lotto_prize {padding:3px 8px;background-color: #8d8d8d; border-radius: 4px;font-size:16px}
+.main_lotto_win ul li div ul li {;background: url(http://image.mrlotto.co.kr/number_box.jpg) no-repeat;padding:1px 6px 3px 4px;text-align: center;color:#2a539a !important; font-weight:400}
+.com, .txt {background: none !important; color:#111 !important; padding:0 !important; padding-right: 2px !important}

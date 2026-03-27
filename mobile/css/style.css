@@ -1,0 +1,115 @@
+html {letter-spacing: -1px;}
+			.f0 {font-size:1.15rem}
+			.f1 {font-size:1.1rem}
+			.f2 {font-size:0.9rem}
+			.f3 {font-size:0.8rem;color:#8d8d8d}
+			.f4 {font-size:0.8rem;line-height:18px}
+			.f5 {font-size:0.65rem;line-height:14px;}
+			.word {width:60%;text-overflow: ellipsis;overflow: hidden;white-space: nowrap}
+			
+			.swiper-container {
+			      width: 100%;
+			      height: 100%;
+			    }
+			    .swiper-slide {
+			      text-align: center;
+			      font-size: 18px;
+			      background: #fff;
+			
+			      /* Center slide text vertically */
+			      display: -webkit-box;
+			      display: -ms-flexbox;
+			      display: -webkit-flex;
+			      display: flex;
+			      -webkit-box-pack: center;
+			      -ms-flex-pack: center;
+			      -webkit-justify-content: center;
+			      justify-content: center;
+			      -webkit-box-align: center;
+			      -ms-flex-align: center;
+			      -webkit-align-items: center;
+			      align-items: center;
+			    }
+			
+			.top_td {width:100%}
+			.top_td td {width:20%}
+			.top_td td:nth-child(2) {width:60%}
+			
+			.contents { width:92%; margin:0 auto; box-sizing: border-box;padding:4% 0}
+			.contents h3 {font-weight:bold;padding-bottom:5px;margin-top:-4%}
+			
+			.line {display: block}
+			
+			.notice {border-top:1px solid #8d8d8d; border-bottom:1px solid #8d8d8d}
+			.notice ul {overflow: hidden}
+			.notice ul li {display: inline-block;vertical-align: middle;}
+			.notice ul li:first-child {width:20%}
+			.notice ul li:last-child {font-size:0.9em}
+			
+			.lottoball span:first-child img, .lottoball span:last-child img {width:10%;vertical-align: middle}
+			.lottoball>div {width:100%;margin:0 auto;position: relative; text-align: center;box-sizing: border-box}
+			.lottoball .ball_prev img { position: absolute; left:0}
+			.lottoball .ball_next img { position: absolute; right:0}
+			.lottoball .number {color:#2a76ce;font-weight:bold;font-size:1.4em;}
+			.lottoball .text {font-weight:bold;font-size:1.2em;}
+			.lottoball .date {color:#888;font-size:0.8rem;vertical-align: middle;padding-left:8px}
+			
+			.lotto_ball p span {padding:0 1%}
+			
+			.lotto_table {margin-bottom:4%}
+			.lottotable {margin-top:3%;font-size:0.9em;margin-bottom:1%}
+			.lottotable tr td {text-align: right;padding:3px 10px 3px 0;border-right:1px solid #fff;background-color: #f8f8f8;border-top:1px solid #fff}
+			.lottotable tr td:first-child {text-align:center;padding-right:0}
+			.lottotable tr td:last-child {border-right:0}
+			.lottotable tr:first-child td {background-color: #2a76ce;color:#fff; text-align: center;font-size:0.9em;padding:2px 0;border-top:none}
+			.lottotable tr:first-child td:first-child {border-radius: 10px 0 0 0 }
+			.lottotable tr:first-child td:last-child {border-radius: 0 10px 0 0 }
+			.lottotable tr:last-child td:first-child {border-radius: 0 0 0 10px }
+			.lottotable tr:last-child td:last-child {border-radius: 0 0 10px 0 }
+			
+			.news, .product, .tv, .event {overflow: hidden;padding-bottom:1%}
+			.news p {width:20%;float: left;}
+			.product p {width:22%; float: left}
+			.tv p {width:20%; float: left}
+			.event p {width:16%; float: left}
+			.news span, .product span, .tv span, .event span {width:17%;float: right; }
+			
+			.news_table {border-top:1px solid #111;display: table;width:100%}
+			.news_table_thum {width:25%;overflow: hidden;position: relative; display: table-cell;padding:2% 0;}
+			.news_table_thum img {border:1px solid #d8d8d8;box-sizing: border-box}
+			.news_tit {display: table-cell;width:65%;vertical-align: middle;padding-left:2%;}
+			.news_date {display: table-cell;width:20%;text-align: right;vertical-align: middle;padding-right:2%;}
+			.chart {padding-bottom:4%}
+			
+			.event {display: table;width:100%}
+			.event_thum {width:25%;overflow: hidden;position: relative; display: table-cell;vertical-align: middle}
+			.event_thum img {width:80% !important;box-sizing: border-box}
+			.event_thum_tit {width:75%;display: table-cell;}
+			.event_thum_tit h4 {font-weight:bold;}
+
+
+
+
+/* 서브 */
+.member_contents {width:88%; margin:0 auto; box-sizing: border-box;padding:4% 0}
+.inp_tit {margin-top:6%;}
+.inp {border-radius: 10px;border: 1px solid #d8d8d8;line-height:36px;padding-left:15px;width:100%;box-sizing: border-box}
+.bt {border-radius: 10px;color:#fff;width:100%; display: block;text-align: center;line-height: 40px; box-shadow: 3px 3px 3px #bbb}
+.blue_bt {background-color: #2a76ce;margin-top:7%}
+.naver_bt {background-color: #4acf3c;margin-top:2%;margin-bottom:3%}
+
+input[type="checkbox"] {vertical-align: middle}
+label {font-size:0.8rem;color:#666}
+.check input[type="checkbox"], .check input[type="checkbox"]:checked + label:after {width:1.25rem; height:1.25rem;}
+.check input[type="checkbox"]:checked+label {}
+
+.small_bt {overflow: hidden;margin-top:5%}
+.small_bt a {display: inline-block; border:1px solid #d8d8d8;width:48%;border-radius: 5px;text-align: center;line-height:24px;font-size:0.8rem}
+.small_bt a:last-child {float: right;}
+.red {color:red}
+.pri_bt {background-color:#111;color:#fff; font-size:0.8rem; display: inline-block; width:30%}
+
+
+/* 푸터 */
+.footer1 {margin-top:10%; background-color: #444;}
+.footer1 p {font-size:0.7rem;text-align: center; color:#fff;line-height: 16px}

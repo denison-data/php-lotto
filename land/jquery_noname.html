@@ -1,0 +1,166 @@
+<script type="text/javascript" src="http://<?=$js_url?>/pc/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="http://<?=$js_url?>/pc/jQueryRotateCompressed.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	phone_check();
+	var para = document.location.href.split("?");
+
+	var vPage = window.location.protocol + "//" + window.location.host + "" + window.location.pathname;
+	if(para.length==2){
+		vPage = vPage+"?"+para[para.length-1];
+	} else {
+		vPage = vPage;
+	}
+	
+	$("#create").on("click",function(){
+		var lgurl = "/land/land_p.php";
+		var etc;
+		if($("#etc").val()){
+			etc = $("#etc").val();
+		}
+		var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+		if(check.test($.trim($("#tel").val()))){
+			var alt = '연락처를 정확히 기입해주세요';
+			$("#tel").val("");
+			$("#tel").focus();
+			return false;
+		}
+		
+		if($.trim($("#tel2").val()).length==0){
+			var alt = '연락처를 기입해주세요';
+			alert(alt);
+			$("#tel2").val("");
+			$("#tel2").focus();
+			return false;
+		}
+		
+		var trn_num2 = $.trim($("#tel2").val()).replace(/-/gi,'');
+		var trn_num3 = $.trim($("#tel3").val()).replace(/-/gi,'');
+		if(trn_num2.length<3){
+			var alt = '연락처를 다시 기입해주세요';
+			alert(alt);
+			$("#tel2").val("");
+			$("#tel2").focus();
+			return false;
+		}
+		if(trn_num3.length<3){
+			var alt = '연락처를 다시 기입해주세요!';
+			alert(alt);
+			$("#tel3").val("");
+			$("#tel3").focus();
+			return false;
+		}
+		var form_data = {
+			tel		:	$.trim($("#tel1").val())+$.trim($("#tel2").val())+$.trim($("#tel3").val()),
+			name	:	$.trim($("#uname").val()),
+			page	:	vPage,	
+			etc		:	etc,
+			mode	:	"land_ins"
+		};
+		
+		$.ajax({
+			type	:	"POST",
+			url		:	lgurl,
+			data : form_data,
+			dataType : "json",
+			async: false,
+			cache: false,
+			success : function(data){
+				if(data['status']=="0"){
+					alert('번호받기가 신청되었습니다.');
+					$("#tel2").val("");
+					$("#tel3").val("");
+					$("#uname").val("");
+				} else {
+					alert('이미 전화번호가 등록되어있습니다.');
+					$("#cellnum2").val("");
+					$("#cellnum3").val("");
+					$("#uname2").val("");
+				}
+				
+			},
+			error: function(request, status, error) {
+				console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+		return false;
+	});
+});
+function phone_check(){
+	
+	$("#tel2").on('keydown',function(e){
+		var trn_num = $(this).val().replace(/-/gi,'');
+		$(this).val($(this).val().replace(/[^0-9]/g,"") );
+
+		var k = e.keyCode;
+		if(trn_num.length >= 11 && ((k >= 48 && k <=126) || (k >= 12592 && k <= 12687 || k==32 || k==229 || (k>=45032 && k<=55203)) ))
+		{
+			e.preventDefault();
+		}	
+	}).on('blur',function(){
+
+		if($.trim($(this).val())=='') return;
+		var trn_num = $(this).val().replace(/-/gi,'');
+		if(trn_num != null && trn_num != ''){
+			if(trn_num.length==11 || trn_num.length==10){
+				var rep_ctn = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
+				if(rep_ctn.test(trn_num)){
+					trn_num = trn_num.replace(/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?([0-9]{3,4})-?([0-9]{4})$/, "$1-$2-$3"); 
+
+					$(this).val(trn_num);
+				} else {
+					alert("유효하지 않은 전화번호 입니다!!.");
+					$(this).val("");
+					$(this).focus();
+					return false;
+				}
+			}
+		}else {
+			alert("유효하지 않은 전화번호 입니다!!.");
+			$(this).val("");
+			$(this).focus();
+			return false;
+		}
+		
+	});
+
+
+	$("#tel3").on('keydown',function(e){
+		var trn_num = $(this).val().replace(/-/gi,'');
+		$(this).val($(this).val().replace(/[^0-9]/g,"") );
+
+		var k = e.keyCode;
+		if(trn_num.length >= 11 && ((k >= 48 && k <=126) || (k >= 12592 && k <= 12687 || k==32 || k==229 || (k>=45032 && k<=55203)) ))
+		{
+			e.preventDefault();
+		}	
+	}).on('blur',function(){
+
+		if($.trim($(this).val())=='') return;
+		var trn_num = $(this).val().replace(/-/gi,'');
+		if(trn_num != null && trn_num != ''){
+			if(trn_num.length==11 || trn_num.length==10){
+				var rep_ctn = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
+				if(rep_ctn.test(trn_num)){
+					trn_num = trn_num.replace(/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?([0-9]{3,4})-?([0-9]{4})$/, "$1-$2-$3"); 
+
+					$(this).val(trn_num);
+				} else {
+					alert("유효하지 않은 전화번호 입니다!!.");
+					$(this).val("");
+					$(this).focus();
+					return false;
+				}
+			}
+		}else {
+			alert("유효하지 않은 전화번호 입니다!!.");
+			$(this).val("");
+			$(this).focus();
+			return false;
+		}
+		
+	});
+	
+}
+</script>

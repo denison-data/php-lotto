@@ -1,0 +1,206 @@
+@charset "utf-8";
+
+
+/* 헤더 */
+#header ul,
+#header ul li,
+#header ul li a,
+#header #menu-button {
+  list-style: none;
+  display: block;
+  position: relative;
+}
+#header ul .logo {margin-top:-5px;}
+#header ul .logout {float:right;}
+#header ul .logout a {color:#fff; font-size:12px; font-family:dotum; font-weight:normal; color:#fff; text-decoration:underline;}
+#header ul .logout a:hover {color:#efefef;}
+
+
+#header:after,
+#header > ul:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+
+}
+#header #menu-button {
+  display: none;
+}
+#header {
+  min-width:1250px;
+}
+#header > ul {
+  background: url('http://image.mrlotto.co.kr/admin/bg.png');
+	}
+#header.align-right > ul > li {
+  float: right;
+}
+#header > ul > li {
+  float: left;
+  display: inline-block;
+}
+#header.align-center > ul {
+  float: none;
+  text-align: center;
+}
+#header.align-center > ul > li {
+  float: none;
+}
+#header.align-center ul ul {
+  text-align: left;
+}
+#header > ul > li > a {
+  padding: 25px 25px 21px 50px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight:bold;
+  color: #d3eced;
+  letter-spacing: 1px;
+}
+#header > ul > li:hover > a,
+#header > ul > li > a:hover, 
+#header > ul > li.active > a {
+  color: #006e79; /* 서브메뉴 색상 */
+}
+#header > ul > li.has-sub > a {
+  padding-right: 45px;
+  
+}
+#header > ul > li.has-sub > a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  right: 17px;
+  top: 22px;
+}
+#header > ul > li.has-sub.active > a:after,
+#header > ul > li.has-sub:hover > a {
+	color:#fff; /* 서브메뉴 오버 색상 */
+
+}
+#header ul ul {
+  position: absolute;
+  left: -9999px;
+  top: 60px;
+  padding-top: 22px; /* 서브메뉴 거리 */
+  font-size: 11px;
+  opacity: 0;   /* 서브메뉴 애니메이션 및 투명도(익스8작동x)*/
+  -webkit-transition: top 0.2s ease, opacity 0.2s ease-in;
+  -moz-transition: top 0.2s ease, opacity 0.2s ease-in;
+  -ms-transition: top 0.2s ease, opacity 0.2s ease-in;
+  -o-transition: top 0.2s ease, opacity 0.2s ease-in;
+  transition: top 0.2s ease, opacity 0.2s ease-in;
+}
+#header.align-right ul ul {
+  text-align: right;
+}
+#header > ul > li > ul::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -4px;
+  left: 20px;
+}
+#header.align-right > ul > li > ul::after {
+  left: auto;
+  right: 20px;
+}
+#header ul ul ul::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 11px;
+  left: -4px;
+}
+#header.align-right ul ul ul::after {
+  border-right-color: transparent;
+  border-left-color: #ffffff;
+  left: auto;
+  right: -4px;
+}
+#header > ul > li > ul {
+  top: 120px;
+}
+#header > ul > li:hover > ul {
+  top: 52px;   /* 서브메뉴 위치 */
+  left: 25px;
+  opacity: 1;
+}
+#header.align-right > ul > li:hover > ul {
+  left: auto;
+  right: 0;
+}
+#header ul ul ul {
+  padding-top: 0;
+  padding-left: 6px;
+}
+#header.align-right ul ul ul {
+  padding-right: 6px;
+}
+#header ul ul > li:hover > ul {
+  left: 180px;
+  top: 0;
+  opacity: 1;
+}
+#header.align-right ul ul > li:hover > ul {
+  left: auto;
+  right: 100%;
+  opacity: 1;
+}
+#header ul ul li a {
+  text-decoration: none;
+  font-size: 11px;
+  font-family: dotum;
+  padding: 10px 13px;
+  width: 150px;
+  color: #68ffe8;
+  line-height:0.5em;
+  background: #00acbd; /* 서브메뉴 배경*/
+  
+}
+#header ul ul li a .p_top {padding-top:15px;}
+#header ul ul li a .p_bottom {padding-bottom:15px;}
+
+#header ul ul li:hover > a,
+#header ul ul li.active > a {
+  color: #fff;
+}
+
+#header > ul > li > ul::after {
+  position: absolute;
+  display: block;
+}
+#header ul ul li.has-sub > a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: 14px;
+  top: 15px;
+}
+
+
+#header.align-right ul ul li.has-sub > a::after {
+  border-left-color: transparent;
+  border-right-color: #777777;
+  right: auto;
+  left: 17px;
+}
+#header ul ul li.has-sub.active > a::after,
+#header ul ul li.has-sub:hover > a::after {
+
+}
+#header.align-right ul ul li.has-sub.active > a::after,
+#header.align-right ul ul li.has-sub:hover > a::after {
+
+
+}
+
+
+
+/* 푸터 */
+#footer p {float:left; margin:18px 0 0 50px;}

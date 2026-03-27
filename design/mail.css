@@ -1,0 +1,13 @@
+
+.mail_form {width:700px;margin:0 auto}
+.mail_form_header {background-color: #164a95;height:105px;padding-top:5px}
+.mail_form_header h1 {width:690px;margin:0 auto;text-align:center;padding-top:5px;border:1px solid #fff;border-bottom:none}
+.mail_form_cont_wrap {background-color:#f8f8f8;text-align:center;padding-bottom:5px; }
+.mail_form_cont {width:690px;margin:0 auto; border:1px solid #d9d9d9; border-top:0; padding:70px 0}
+.mail_form_cont h2 {font-size:20px;font-weight:400;margin-bottom:20px}
+.mail_form_cont p {background-color:#fff; width:300px;margin:0 auto;padding:30px 0;font-size:32px;font-weight:500}
+.mail_form_cont div {margin-top:15px;font-size:13px; color:#164a95;text-align:center;line-height:18px}
+.mail_form_cont h3 {font-size:28px;line-height:150%}
+.mail_form_cont a {background: rgb(42,83,154);background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border:none; border-radius: 4px;padding:15px 30px;color:#fff;display:inline-block;width:230px;margin-top:30px; font-size:22px; font-weight:400}
+.mail_form_cont_footer {margin-top:10px}
+.mail_form_cont_footer span {font-size:13px;padding-right:15px;}

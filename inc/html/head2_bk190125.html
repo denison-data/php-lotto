@@ -1,0 +1,443 @@
+<?
+session_start();
+
+//print_r($_SESSION);
+function MobileCheck() { 
+    global $_SERVER;
+	$HTTP_USER_AGENT = $_SERVER['HTTP_USER_AGENT'];
+    $MobileArray  = array("iphone","lgtelecom","skt","mobile","samsung","nokia","blackberry","android","android","sony","phone"); 
+
+    $checkCount = 0; 
+        for($i=0; $i<sizeof($MobileArray); $i++){ 
+            if(preg_match("/$MobileArray[$i]/", strtolower($HTTP_USER_AGENT))){ $checkCount++; break; } 
+        } 
+   return ($checkCount >= 1) ? "Mobile" : "Computer"; 
+}
+$Mobile = MobileCheck();
+$now_url = siteURL();
+
+if($Mobile=="Mobile"){
+
+	if(strpos($now_url,"co.kr/") !== false){
+		$move_url = str_replace("co.kr/","co.kr/m/",$now_url);
+		header("Location: $move_url"); 
+	}
+}
+
+function siteURL() {
+	$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || 
+	$_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+	$domainName = $_SERVER['HTTP_HOST'];
+	return $protocol.$domainName.$_SERVER['REQUEST_URI'];
+}
+
+?>
+<!doctype html>
+<html lang="ko">
+	<head>
+		<title>미스터 로또씨</title>
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+		<meta name="naver-site-verification" content="8242ab470054437fdd8b10388124346e224161ca"/>
+		<meta name="description" content="신뢰를 우선으로 하는 로또 분석번호 제공 서비스. 당첨번호 조회 가능. 미스터로또씨"/>
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="미스터 로또씨">
+<meta property="og:description" content="미스터 로또씨에 오신걸 환영합니다.">
+<meta property="og:image" content="http://<?=$img_url?>/logo.png">
+<meta property="og:url" content="http://www.mrlotto.co.kr/">
+
+
+
+		<link rel="shortcut icon" href="http://<?=$img_url?>/favicon.ico">
+		<link rel="stylesheet" href="http://<?=$css_url?>/pc/reset.css?dev=<?=date("YmdHis")?>">
+		<link rel="stylesheet" href="http://<?=$css_url?>/pc/main_n2.css?dev=<?=date("YmdHis")?>">
+		<link rel="stylesheet" href="http://<?=$css_url?>/pc/nivo-slider.css" type="text/css" media="screen" />
+		
+		<link rel="stylesheet" href="http://<?=$css_url?>/pc/sub.css?dev=<?=date("YmdHis")?>" type="text/css" media="screen" />
+
+		<link rel="stylesheet" type="text/css" href="http://<?=$css_url?>/pc/slick.css?dev=<?=date("YmdHis")?>"/>
+		<link rel="stylesheet" href="http://<?=$css_url?>/pc/styles_n2.css?dev=<?=date("YmdHis")?>" type="text/css" media="screen" />
+<!-- 네이버 로그인--->
+<script type="text/javascript" src="http://<?=$js_url?>/naverLogin_implicit-1.0.3.js?dev=<?=date("YmdHis")?>" charset="utf-8"></script>
+<!-- 네이버 로그인 스크립트--->
+
+<script src="http://<?=$js_url?>/pc/jquery-latest.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="http://<?=$js_url?>/pc/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="http://<?=$js_url?>/pc/jquery.nivo.slider.js?dev=<?=date("YmdHis")?>"></script>
+<script src="http://<?=$js_url?>/pc/jquery.bxslider.js?dev=<?=date("YmdHis")?>" type="text/javascript"></script>
+
+<script src="http://<?=$js_url?>/pc/common.js?dev=<?=date("YmdHis")?>" type="text/javascript"></script>
+
+<script type="text/javascript" src="http://<?=$js_url?>/pc/jquery.ulslide.js"></script>
+
+
+<script src="http://<?=$js_url?>/pc/scripts_2.js?dev=<?=date("YmdHis")?>" type="text/javascript"></script>
+<script type="text/javascript">
+var naver_id_login = new naver_id_login(naver_client_id, naver_callback_url);
+
+$(window).load(function() {
+<?
+if(date("YmdH")>"2018121313"){
+?>
+	var link = document.location.href;
+/*
+	if (navigator.userAgent.match(/iPhone|iPod|Android|Windows CE|BlackBerry|Symbian|Windows Phone|webOS|Opera Mini|Opera Mobi|POLARIS|IEMobile|lgtelecom|nokia|SonyEricsson/i) != null || navigator.userAgent.match(/LG|SAMSUNG|Samsung/) != null) {
+		if(link.indexOf("/m/")!=-1){
+		} else {
+			link = link.replace("co.kr/","co.kr/m/");
+			<?
+			if($_SERVER['REQUEST_URI']){
+			?>
+			top.location.href="/m/<?=$_SERVER['REQUEST_URI']?>";
+			<?
+			} else {
+			?>
+			top.location.href="/m/";
+			<?
+			}
+			?>
+			//console.log(link)
+		}
+	}
+*/	
+<?
+}
+?>		
+	//$('#slider').nivoSlider();
+
+	$("#login_ck").on("click",function(){
+		if($("#user_id").val().length==0){
+			alert("ID 입력바랍니다");
+			$("#user_id").focus();
+			return false;
+		}
+		if($("#pwd").val().length==0){
+			alert("비밀번호 입력바랍니다");
+			$("#pwd").focus();
+			return false;		
+		}
+		if($("#login_id_check").is(":checked")){                     
+			   //id 저장 클릭시 pwd 저장 체크박스 활성화			  
+			var userInputId = $("input[name='user_id']").val();
+			setCookie("userInputId", userInputId, 365);
+			//console.log('체크되어있음');
+		}else{ 
+			deleteCookie("userInputId");			
+		}
+		
+		var lgurl = "/member/login_process.php";
+		$("#form1").attr("action",lgurl);
+		$("#form1").submit();
+
+		/*
+		var form_data = {
+			user_id : $("#user_id").val(),
+			user_pw: $("#pwd").val(),
+			rurl : $("#rurl").val(),
+			mode : "logins"
+		};
+		$.ajax({
+			type	:	"POST",
+			url		:	lgurl,
+			data : form_data,
+			async: true,
+			cache: false,
+			success : function(data){
+				console.log(data);
+			},
+			error: function(request, status, error) {
+				console.log("error");
+			}
+		});*/
+		return false;
+	});
+	$("#logout").on("click",function(){
+		var lgurl = "/member/login_process.php";
+		$("#logout_form").attr("action",lgurl);
+		$("#logout_form").submit();
+	});
+
+	$("#pwd").keydown(function(key) {
+		if (key.keyCode == 13) {
+			if($("#pwd").val().length==0){
+				alert("비밀번호 입력바랍니다");
+				$("#pwd").focus();
+				return false;		
+			}
+			if($("#login_id_check").is(":checked")){                     
+			   //id 저장 클릭시 pwd 저장 체크박스 활성화			  
+				var userInputId = $("input[name='user_id']").val();
+				setCookie("userInputId", userInputId, 365);
+				
+			}else{ 
+				deleteCookie("userInputId");			
+			}
+			
+			var lgurl = "/member/login_process.php";
+			$("#form1").attr("action",lgurl);
+			$("#form1").submit();
+		}
+	});
+	var userInputId = getCookie("userInputId");
+	$("input[name='user_id']").val(userInputId); 
+	if(userInputId){
+		$("#login_id_check").attr("checked",true);
+	} else {
+		$("#login_id_check").attr("checked",false);
+
+	}
+	$("#login_id_check").change(function(){ 
+		if($("#login_id_check").is(":checked")){                     
+			   //id 저장 클릭시 pwd 저장 체크박스 활성화			  
+			var userInputId = $("input[name='user_id']").val();
+			setCookie("userInputId", userInputId, 365);
+		}else{ 
+			deleteCookie("userInputId");			
+		}
+	});
+	<?
+	if(basename($_SERVER['PHP_SELF'])=="index.php"){
+	?>
+		brod_img('<?=getBroCurSeq()?>');
+		
+		<?
+		if(!$_SESSION['userid']){
+		?>
+		
+		var state = naver_id_login.getUniqState();
+		naver_id_login.setButton("white", 4,40);
+		naver_id_login.setDomain("http://<?=$hostname?>/");
+		naver_id_login.setState(state);
+		//naver_id_login.setPopup();
+		naver_id_login.init_naver_id_login();
+		
+		<?
+		}
+		?>
+	<?
+	} else if(basename($_SERVER['PHP_SELF'])=="login.php"){
+		if(!$_SESSION['userid']){
+	?>	
+		var state = naver_id_login.getUniqState();
+		naver_id_login.setButton("white", 4,40);
+		naver_id_login.setDomain("http://<?=$hostname?>/");
+		naver_id_login.setState(state);
+		//naver_id_login.setPopup();
+		naver_id_login.init_naver_id_login();
+	<?
+		}
+	}
+	?>
+});
+function brod_img(seq){
+	var lurl = "./info/lotto.php";
+	var form_data = {
+		seq : seq,
+		mode : "brod_select"
+	};
+	$.ajax({
+		type	:	"POST",
+		url		:	lurl,
+		data : form_data,
+		async: false,
+		dataType : "json",
+		cache: false,
+		success : function(data){
+			if(data['data'][seq]){
+				if(data['data'][seq]['img']){
+					$("#brod_img > img").attr({"src":data['data'][seq]['img']});
+				} else {
+					$("#brod_img > img").attr({"src":"http://<?=$img_url?>/main_video.jpg"});
+				}
+				$("#brod_img > img").attr({"onclick":"window.open('"+data['data'][seq]['url']+"');","width":"341","height":"135"});
+			}
+		},
+		error: function(request, status, error) {
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+		}
+	});
+	return false;
+}
+/*SyntaxHighlighter.all();*/
+
+function setCookie(cookieName, value, exdays){
+	var exdate = new Date();
+	exdate.setDate(exdate.getDate() + exdays);
+	var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+	document.cookie = cookieName + "=" + cookieValue;
+}
+function deleteCookie(cookieName){
+	var expireDate = new Date();
+	expireDate.setDate(expireDate.getDate() - 1); //어제날짜를 쿠키 소멸날짜로 설정
+	document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+}
+function getCookie(cookieName) {
+	cookieName = cookieName + '=';
+	var cookieData = document.cookie;
+	var start = cookieData.indexOf(cookieName);
+	var cookieValue = '';
+	if(start != -1){
+		start += cookieName.length;
+		var end = cookieData.indexOf(';', start);
+		if(end == -1)end = cookieData.length;
+		cookieValue = cookieData.substring(start, end);
+	}
+	return unescape(cookieValue);
+}
+</script>
+
+		<style>
+			html {width:100% !important}
+			.bx_pager a {display: none}
+			::-webkit-scrollbar {
+
+				display:none;
+				
+				} 
+			#wrap{position:relative; width:100%;}
+			#main_bn {
+				margin:0 auto;
+				width:284px;
+				height:291px;
+			}
+			#main_bn img {
+				width:100%;
+				height:auto;
+			}
+            #main_bn_btn {
+                list-style-type:none;
+				position:absolute;
+				bottom:5px; left:250px;
+            }
+            #main_bn_btn li {
+                float: left; padding:0px 2px; margin-right:5px; 
+            }
+            a {text-decoration: none !important}
+		</style>
+	</head>
+<body style="-ms-overflow-style: none; ">
+<form name="logout_form" id="logout_form" method="post">
+<input type="hidden" name="mode" value="logout">
+</form>
+
+<?
+if(basename($_SERVER['PHP_SELF'])=="index.php"){
+?>
+<script>
+function layer_close(id,hiddenWay) {
+	var obj = document.getElementById("expirehours"+ id);
+	var tmpid = document.getElementById("pop"+id);
+	if (obj.checked == true) {
+		set_cookie("it_ck_pop_"+id, "done", obj.value, window.location.host);
+	}
+	if(hiddenWay == "ts_slideDownBack"){
+		ts_slideDownBack(tmpid);
+	}else if(hiddenWay == "ts_slideLeftBack"){
+		ts_slideLeftBack(tmpid);
+	}else if(hiddenWay == "ts_slideLeftDownBack"){
+		ts_slideLeftDownBack(tmpid);
+	}else if(hiddenWay == "ts_fadeInBack"){
+		ts_fadeInBack(tmpid);
+	}else{
+		tmpid.style.display = "none";
+	}
+	selectbox_visible();
+}
+function selectbox_visible() 
+{ 
+	for (i=0; i<document.forms.length; i++) { 
+		for (k=0; k<document.forms[i].length; k++) { 
+			el = document.forms[i].elements[k];    
+			if (el.type == "select-one" && el.style.visibility == 'hidden') 
+				el.style.visibility = 'visible'; 
+		} 
+	} 
+}
+</script>
+<style>
+#pop8{
+	position:absolute;
+	z-index:9999999;
+	width:420px;
+	height:430px;
+	filter:alpha(opacity=100);
+	overflow : hidden;
+	top:80px;
+	left:100px;
+}
+</style>
+<div id="pop8" >
+	<div style="width:400px;overflow:hidden;">
+	<table cellpadding="0" cellspacing="0" bgcolor="#edf2fc" width="100%" height="100%">
+		<tr>
+			<td>
+			<table cellspacing="0" cellpadding="0" width="100%" height="400">
+				<tr>
+					<td><div style="overflow:hidden;"><div style="text-align: center"><img id="image_0.43562147746718776" style="width: 400px;" alt="pop.jpg" src="http://image.mrlotto.co.kr/popup/190122_popup.jpg" /><br /></div></div></td>
+				</tr>
+			</table>
+			<div style="background:#000000;color:#FFFFFF;text-align:left;font-size:12px;">
+				<input type="checkbox"  id="expirehours8" name="expirehours8" value="24">24시간 동안 이 창을 다시 열지 않음
+				<a href="javascript:layer_close(8)"><img src="http://image.mrlotto.co.kr/popup/close.jpg" width="14" height="14" border="0"></a>
+			</div>
+			</td>
+		</tr>
+	</table>
+	</div>
+</div>
+<script>
+selectbox_hidden("8");
+</script>
+<?
+}
+?>
+<div id="wrap">
+	<!--head start-->
+	<div id="header">
+		<div class="top_menu">
+			<h1><a href="/"><img src="http://<?=$img_url?>/logo.png" alt="로고"></a></h1>
+			<div class="nav">
+				<ul>
+					<li><a href="/info/sub.php?dep=1" alt="분석 시스템">분석 시스템</a></li>
+					<li><a href="/info/sub.php?dep=2" alt="상품 소개">상품 소개</a></li>
+					<li><a href="/bbs/board.php?dep=n" alt="공지사항">공지사항</a></li>
+					<li><a <? if(!$_SESSION[userid]){?> href="/member/login.php?target=/member/mypage.php"<? } else { ?> href="/member/mypage.php" <? } ?> alt="마이페이지">마이페이지</a></li>
+					<li><a href="/bbs/board.php?dep=e" alt="이벤트">이벤트</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!--head end-->
+<?
+include BASE_DIR."/land/jquery_inc.html";
+?>
+	<!--main_contents start-->
+	<div id="main_contents" style="position:relative">
+		<div style="position: absolute;top:-92px; right:-135px">
+			<a href="/info/sub.php?dep=2"><img src="http://<?=$img_url?>/prijoin.png"></a>
+		</div>
+		<?
+		if(basename($_SERVER['PHP_SELF'])!="join.php" && basename($_SERVER['PHP_SELF'])!="login.php"){
+		?>
+		<div class="right_quick" <? if(basename($_SERVER['PHP_SELF'])!="index.php"){ ?>style="top: 44px;" <? } ?>>
+			<ul>
+				<li><a href="#"  onclick="window.open('http://<?=$img_url?>/quality.jpg','','width=600,height=814,scrollbars=no,top=30,left=30');"><img src="http://<?=$img_url?>/side1.jpg"></a></li>
+				<li><a href="#"  onclick="window.open('http://<?=$img_url?>/guarantee.jpg','','width=600,height=857,scrollbars=no,top=30,left=30');"><img src="http://<?=$img_url?>/side2.jpg"></a></li>
+				<li style="margin:7px 0;line-height: 0">
+					
+					<img src="http://<?=$img_url?>/side3.jpg" style="width:150px !important;border:1px solid #d6d6d6;box-sizing: border-box;border-bottom: none">
+					<div style="width:150px !important;box-sizing:border-box;border:1px solid #d6d6d6;border-top:none;border-bottom: none;"><input type="text" style="display: block; width: 130px;padding-left:5px;margin: 0 auto;height: 30px;line-height: 30px;font-size:14px;box-sizing: border-box; border: 1px solid #999" placeholder="- 제외하고 입력" name="tel" id="tel"></div>
+					<a href="javascript:;" id="create_noname"><img src="http://<?=$img_url?>/side3_bt.jpg" style="width:150px !important;box-sizing: border-box !important;border:1px solid #d6d6d6;border-top:none;padding:10px 0 "></a>
+				</li>
+				<li><img src="http://<?=$img_url?>/side4.jpg"></li>
+				<li style="margin:7px 0;line-height: 0;"><a href="/bbs/board.php?dep=n&page=1"><img src="http://<?=$img_url?>/side5.jpg"></a></li>
+				<li style="line-height: 0;margin-bottom:7px"><a  <?	if(!$_SESSION[userid]){	?>href="/member/login.php" <? } else { ?>href="javascript:alert('이미 로그인이 되어있습니다.')" <? } ?>><img src="http://<?=$img_url?>/side6.jpg" style="width:150px !important;border:1px solid #d6d6d6;box-sizing: border-box;"></a></li>
+				<li style="margin:7px 0"><a href="/bbs/board_v.php?dep=e&page=1&uid=13"><img src="http://<?=$img_url?>/side7.jpg"></a></li>
+				<!--li><img src="http://<?=$img_url?>/side8.jpg"></li-->
+			</ul>
+		</div>
+		<?
+		}
+		?>

@@ -1,0 +1,96 @@
+<style>
+@charset "utf-8";
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css); 
+/* 공통속성 */
+
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: 300;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: '맑은고딕', 'Noto Sans KR', sans-serif; 
+	vertical-align: baseline;
+	letter-spacing: -1px;
+	box-sizing: border-box;
+	
+}
+
+a {text-decoration: none; color: inherit; vertical-align: middle}
+
+
+/* remember to define focus styles! */
+
+:focus {outline: 0;}
+
+body {font-family:'맑은고딕', 'Noto Sans KR', sans-serif; color:#333; line-height:1.5em; font-weight:400; font-size:16px; height:100%;}
+
+button {font-family:'Noto Sans KR',sans-serif;}
+
+ol, ul {list-style: none;}
+
+
+img {border:none;}
+
+input {box-sizing: border-box}
+
+input:-ms-input-placeholder {color:#ccc; font-size:13px}
+input:-webkit-input-placeholder {color:#ccc; font-size:13px}
+input:-moz-input-placeholder,input:-moz-input-placeholder {color:#ccc; font-size:13px}
+
+
+button::-moz-focus-inner{
+
+    padding:0;border:0;
+
+}
+
+
+/* tables still need 'cellspacing="0"' in the markup */
+
+table {border-collapse: separate; border-spacing: 0;}
+
+caption, th, td {text-align: left;}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 100;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 300;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 400;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 500;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 700;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype');}
+
+
+
+@font-face {font-family: 'Noto Sans KR';font-style: normal;font-weight: 900;src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'),url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');}
+
+.mail_form {width:700px;margin:0 auto}
+.mail_form_header {background-color: #164a95;height:105px;padding-top:5px}
+.mail_form_header h1 {width:690px;margin:0 auto;text-align:center;padding-top:5px;border:1px solid #fff;border-bottom:none}
+.mail_form_cont_wrap {background-color:#f8f8f8;text-align:center;padding-bottom:5px; }
+.mail_form_cont {width:690px;margin:0 auto; border:1px solid #d9d9d9; border-top:0; padding:70px 0}
+.mail_form_cont h2 {font-size:20px;font-weight:400;margin-bottom:20px}
+.mail_form_cont p {background-color:#fff; width:300px;margin:0 auto;padding:30px 0;font-size:32px;font-weight:500}
+.mail_form_cont div {margin-top:15px;font-size:13px; color:#164a95;text-align:center;line-height:18px}
+.mail_form_cont h3 {font-size:28px;line-height:150%}
+.mail_form_cont a {background: rgb(42,83,154);background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border:none; border-radius: 4px;padding:15px 30px;color:#fff;display:inline-block;width:230px;margin-top:30px; font-size:22px; font-weight:400}
+.mail_form_cont_footer {margin-top:10px}
+.mail_form_cont_footer span {font-size:13px;padding-right:15px;}
+		</style>

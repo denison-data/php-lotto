@@ -1,0 +1,153 @@
+<?
+session_start();
+
+?>
+<!doctype html>
+<html lang="ko">
+	<head>
+		<title>미스터로또씨</title>
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+		<meta name="viewport" content="width=device-width, target-densitydpi=device-dpi, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="http://<?=$css_url?>/mobile/reset.css?dev=<?=date("YmdHis")?>">
+		<link rel="stylesheet" href="http://<?=$css_url?>/mobile/style.css?dev=<?=date("YmdHis")?>">
+		<link rel="stylesheet" href="http://<?=$css_url?>/mobile/swiper.min.css?dev=<?=date("YmdHis")?>">
+		<link rel="stylesheet" href="http://<?=$css_url?>/mobile/swiper2.min.css?dev=<?=date("YmdHis")?>">
+		<link rel="stylesheet" href="http://<?=$css_url?>/mobile/swiper3.min.css?dev=<?=date("YmdHis")?>">
+		
+		<link rel="stylesheet" href="http://<?=$css_url?>/mobile/bxslider.css?dev=<?=date("YmdHis")?>">
+		<link rel="stylesheet" href="http://<?=$css_url?>/mobile/jquery.omniwindow.css?dev=<?=date("YmdHis")?>">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<script type="text/javascript">
+
+
+
+$(document).ready(function(){
+	var loc_data = window.localStorage.getItem("mrlotto_data");
+	if(JSON.parse(loc_data)){
+		var mData = JSON.parse(loc_data);
+		console.log(mData['code']);
+		$("#logimg").attr("src","http://<?=$img_url?>/mobile/logout.png");
+		$("#logimg").parent().attr("id","logout2");
+		$("#logout2").attr("href","javascript:;");
+	}
+	$("#logout2").on("click",function(){
+		alert('로그아웃되었습니다');
+		window.localStorage.removeItem("mrlotto_data");
+		$("#logimg").attr("src","http://<?=$img_url?>/mobile/login.png");
+		$("#logimg").parent().attr("id","login");
+		$("#login").attr("href","<?=$mobile_dir?>/member/login.php");
+	});	
+  $('.slider').bxSlider({
+		auto: true,
+		paper: true,
+		paperSelector: 'paper',
+		touchEnabled: true,
+		controls: true
+	});
+	$("#logout").on("click",function(){
+		var lgurl = "<?=$mobile_dir?>/member/login_process.php";
+		$("#logout_form").attr("action",lgurl);
+		$("#logout_form").submit();
+	});
+	brod_img('<?=getBroCurSeq()?>');
+	view_tables("<?=getCurSeq()?>");
+});
+function brod_img(seq){
+	var lurl = "<?=$mobile_dir?>/info/lotto.php";
+	var form_data = {
+		seq : seq,
+		mode : "brod_select"
+	};
+	$.ajax({
+		type	:	"POST",
+		url		:	lurl,
+		data : form_data,
+		async: false,
+		dataType : "json",
+		cache: false,
+		success : function(data){
+			if(data['data'][seq]){
+				if(data['data'][seq]['img']){
+					$("#brod_img > img").attr({"src":data['data'][seq]['img']});
+				} else {
+					$("#brod_img > img").attr({"src":"http://<?=$img_url?>/mobile/video.jpg"});
+				}
+				$("#brod_img > img").attr({"onclick":"window.open('"+data['data'][seq]['url']+"');","width":"100%"});
+			}
+		},
+		error: function(request, status, error) {
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+		}
+	});
+	return false;
+}
+</script>
+		<style>
+.btn {
+  cursor: pointer;  }
+
+.close {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-image: url("http://s1.daumcdn.net/cfs.tistory/custom/blog/204/2048858/skin/images/close.png");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+#menu {
+  width: 150px;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: -152px;
+  z-index: 10;
+  background-color: white;
+  border-right: 1px solid #063980;
+  transition: All 0.5s ease;
+  -webkit-transition: All 0.5s ease;
+  -moz-transition: All 0.5s ease;
+  -o-transition: All 0.5s ease;
+  color:#fff;
+  padding-top:15%;
+}
+
+#menu.open {
+  left: 0px;
+}
+
+.page_cover.open {
+  display: block;
+}
+
+.page_cover {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 4;
+  display: none;
+}
+.top ul {}		
+.top ul li {display:table-cell }
+
+
+#nav { font-family:'arial'; }
+#nav ul{ width:100%; margin:0; padding:0; }
+#nav ul.menu li{ position:relative; float:left; width:100%; list-style-type:none;border-bottom:1px solid #eee}
+#nav ul.menu li a{ display:block; width:100%; height:100%;text-indent:20px; color:#8d8d8d; text-decoration:none; line-height: 34px; font-size: 1.05em;color:#333}
+#nav ul.menu li a:hover{ background:#eee; }
+#nav ul.menu li .sub a{ position:relative; float:left; display:block; width:100%; z-index:999;  background:#eee; font-size: 0.9em;line-height: 30px; padding-left:10px; box-sizing: border-box;color:#8d8d8d}
+#nav ul.menu li .sub a:hover{ background:#444; color:#fff; }
+
+	</style>
+	</head>

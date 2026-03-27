@@ -1,0 +1,113 @@
+<style>
+		.swiper-container {
+      width: 100%;
+      height: 100%;
+      padding:2% 0 2% 3%;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 0.9em;
+      background: #f8f8f8;
+
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      width: 25%;
+    }
+	
+    .swiper-slide:nth-child(1) {
+	    width:18% !important
+    }
+    .swiper-slide:nth-child(2) {
+	    width:8% !important
+    }
+    .swiper-slide:nth-child(3) {
+	    width:20% !important
+    }
+    .swiper-slide:nth-child(4) {
+	    width:22% !important
+    }
+    
+    .btn {
+  cursor: pointer;  }
+
+.close {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-image: url("http://s1.daumcdn.net/cfs.tistory/custom/blog/204/2048858/skin/images/close.png");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+}
+
+#menu {
+  width: 150px;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: -152px;
+  z-index: 10;
+  background-color: white;
+  border-right: 1px solid #063980;
+  transition: All 0.5s ease;
+  -webkit-transition: All 0.5s ease;
+  -moz-transition: All 0.5s ease;
+  -o-transition: All 0.5s ease;
+  color:#fff;
+  padding-top:15%;
+}
+
+#menu.open {
+  left: 0px;
+}
+
+.page_cover.open {
+  display: block;
+}
+
+.page_cover {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 4;
+  display: none;
+}
+.top ul {}		
+.top ul li {display:table-cell }
+
+
+#nav { font-family:'arial'; }
+#nav ul{ width:100%; margin:0; padding:0; }
+#nav ul.menu li{ position:relative; float:left; width:100%; list-style-type:none;border-bottom:1px solid #eee}
+#nav ul.menu li a{ display:block; width:100%; height:100%;text-indent:20px; color:#8d8d8d; text-decoration:none; line-height: 34px; font-size: 1.05em;color:#333}
+#nav ul.menu li a:hover{ background:#eee; }
+#nav ul.menu li .sub a{ position:relative; float:left; display:block; width:100%; z-index:999;  background:#eee; font-size: 0.9em;line-height: 30px; padding-left:10px; box-sizing: border-box;color:#8d8d8d}
+#nav ul.menu li .sub a:hover{ background:#444; color:#fff; }
+
+		</style>
+<div class="swiper-container">
+	<div class="swiper-wrapper">
+		<span class="swiper-slide"><a href="<?=$mobile_dir?>/member/mypage.php">조합내역</a></span>
+		<span class="swiper-slide"><a href="<?=$mobile_dir?>/member/mycoupon.php">쿠폰</a></span>
+		<span class="swiper-slide"><a href="<?=$mobile_dir?>/member/orders.php">서비스 설정</a></span>
+		<span class="swiper-slide"><a href="<?=$mobile_dir?>/member/modify.php">회원 정보 관리</a></span>
+	</div>
+<!-- Add Pagination -->
+</div>

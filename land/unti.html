@@ -1,0 +1,785 @@
+
+<!doctype html>
+<html lang="ko">
+	<head>
+		<title>미스터 로또씨</title>
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+		<meta name="naver-site-verification" content="8242ab470054437fdd8b10388124346e224161ca"/>
+		<meta name="description" content="신뢰를 우선으로 하는 로또 분석번호 제공 서비스. 당첨번호 조회 가능. 미스터로또씨"/>
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="미스터 로또씨">
+<meta property="og:description" content="미스터 로또씨에 오신걸 환영합니다.">
+<meta property="og:image" content="http://image.mrlotto.co.kr/logo.png">
+<meta property="og:url" content="http://www.mrlotto.co.kr/">
+
+
+
+		<link rel="shortcut icon" href="http://image.mrlotto.co.kr/favicon.ico">
+		<link rel="stylesheet" href="http://css.mrlotto.co.kr/pc/reset.css?dev=20181015162350">
+		<link rel="stylesheet" href="http://css.mrlotto.co.kr/pc/main.css?dev=20181015162350">
+		<link rel="stylesheet" href="http://css.mrlotto.co.kr/pc/nivo-slider.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="http://css.mrlotto.co.kr/pc/styles.css?dev=20181015162350" type="text/css" media="screen" />
+		<link rel="stylesheet" href="http://css.mrlotto.co.kr/pc/sub.css?dev=20181015162350" type="text/css" media="screen" />
+
+<!-- 네이버 로그인--->
+<script type="text/javascript" src="http://js.mrlotto.co.kr/naverLogin_implicit-1.0.3.js?dev=20181015162350" charset="utf-8"></script>
+<!-- 네이버 로그인 스크립트--->
+<script type="text/javascript" src="http://js.mrlotto.co.kr/pc/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="http://js.mrlotto.co.kr/pc/jquery.nivo.slider.js?dev=20181015162350"></script>
+<script src="http://js.mrlotto.co.kr/pc/jquery.bxslider2.min.js" type="text/javascript"></script>
+<script src="http://js.mrlotto.co.kr/pc/scripts.js" type="text/javascript"></script>
+
+<script src="http://js.mrlotto.co.kr/pc/common.js?dev=20181015162350" type="text/javascript"></script>
+
+<script type="text/javascript">
+var naver_id_login = new naver_id_login(naver_client_id, naver_callback_url);
+		
+$(window).load(function() {
+	
+	$('#slider').nivoSlider();
+
+	$("#login_ck").on("click",function(){
+		if($("#user_id").val().length==0){
+			alert("ID 입력바랍니다");
+			$("#user_id").focus();
+			return false;
+		}
+		if($("#pwd").val().length==0){
+			alert("비밀번호 입력바랍니다");
+			$("#pwd").focus();
+			return false;		
+		}
+		if($("#login_id_check").is(":checked")){                     
+			   //id 저장 클릭시 pwd 저장 체크박스 활성화			  
+			var userInputId = $("input[name='user_id']").val();
+			setCookie("userInputId", userInputId, 365);
+			console.log('체크되어있음');
+		}else{ 
+			deleteCookie("userInputId");			
+		}
+		
+		var lgurl = "/member/login_process.php";
+		$("#form1").attr("action",lgurl);
+		$("#form1").submit();
+
+		/*
+		var form_data = {
+			user_id : $("#user_id").val(),
+			user_pw: $("#pwd").val(),
+			rurl : $("#rurl").val(),
+			mode : "logins"
+		};
+		$.ajax({
+			type	:	"POST",
+			url		:	lgurl,
+			data : form_data,
+			async: true,
+			cache: false,
+			success : function(data){
+				console.log(data);
+			},
+			error: function(request, status, error) {
+				console.log("error");
+			}
+		});*/
+		return false;
+	});
+	$("#logout").on("click",function(){
+		var lgurl = "/member/login_process.php";
+		$("#logout_form").attr("action",lgurl);
+		$("#logout_form").submit();
+	});
+
+	$("#pwd").keydown(function(key) {
+		if (key.keyCode == 13) {
+			if($("#pwd").val().length==0){
+				alert("비밀번호 입력바랍니다");
+				$("#pwd").focus();
+				return false;		
+			}
+			if($("#login_id_check").is(":checked")){                     
+			   //id 저장 클릭시 pwd 저장 체크박스 활성화			  
+				var userInputId = $("input[name='user_id']").val();
+				setCookie("userInputId", userInputId, 365);
+				
+			}else{ 
+				deleteCookie("userInputId");			
+			}
+			
+			var lgurl = "/member/login_process.php";
+			$("#form1").attr("action",lgurl);
+			$("#form1").submit();
+		}
+	});
+	var userInputId = getCookie("userInputId");
+	$("input[name='user_id']").val(userInputId); 
+	if(userInputId){
+		$("#login_id_check").attr("checked",true);
+	} else {
+		$("#login_id_check").attr("checked",false);
+
+	}
+	$("#login_id_check").change(function(){ 
+		if($("#login_id_check").is(":checked")){                     
+			   //id 저장 클릭시 pwd 저장 체크박스 활성화			  
+			var userInputId = $("input[name='user_id']").val();
+			setCookie("userInputId", userInputId, 365);
+		}else{ 
+			deleteCookie("userInputId");			
+		}
+	});
+	});
+function brod_img(seq){
+	var lurl = "./info/lotto.php";
+	var form_data = {
+		seq : seq,
+		mode : "brod_select"
+	};
+	$.ajax({
+		type	:	"POST",
+		url		:	lurl,
+		data : form_data,
+		async: false,
+		dataType : "json",
+		cache: false,
+		success : function(data){
+			if(data['data'][seq]){
+				if(data['data'][seq]['img']){
+					$("#brod_img > img").attr({"src":data['data'][seq]['img']});
+				} else {
+					$("#brod_img > img").attr({"src":"http://image.mrlotto.co.kr/main_video.jpg"});
+				}
+				$("#brod_img > img").attr({"onclick":"window.open('"+data['data'][seq]['url']+"');","width":"341","height":"135"});
+			}
+		},
+		error: function(request, status, error) {
+			console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+
+		}
+	});
+	return false;
+}
+/*SyntaxHighlighter.all();*/
+
+function setCookie(cookieName, value, exdays){
+	var exdate = new Date();
+	exdate.setDate(exdate.getDate() + exdays);
+	var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+	document.cookie = cookieName + "=" + cookieValue;
+}
+function deleteCookie(cookieName){
+	var expireDate = new Date();
+	expireDate.setDate(expireDate.getDate() - 1); //어제날짜를 쿠키 소멸날짜로 설정
+	document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+}
+function getCookie(cookieName) {
+	cookieName = cookieName + '=';
+	var cookieData = document.cookie;
+	var start = cookieData.indexOf(cookieName);
+	var cookieValue = '';
+	if(start != -1){
+		start += cookieName.length;
+		var end = cookieData.indexOf(';', start);
+		if(end == -1)end = cookieData.length;
+		cookieValue = cookieData.substring(start, end);
+	}
+	return unescape(cookieValue);
+}
+</script>
+
+		<style>
+			.bx_pager a {display: none}
+			::-webkit-scrollbar {
+
+				display:none;
+				
+				} 
+		</style>
+	</head>
+<body style="-ms-overflow-style: none; ">
+<form name="logout_form" id="logout_form" method="post">
+<input type="hidden" name="mode" value="logout">
+</form>
+<div id="wrap">
+	<!--head start-->
+	<div id="header">
+		<div class="top_menu">
+			<h1><a href="/"><img src="http://image.mrlotto.co.kr/logo.png" alt="로고"></a></h1>
+			<div class="nav">
+				<ul>
+					<li><a href="/info/sub.php?dep=1" alt="분석 시스템">분석 시스템</a></li>
+					<li><a href="/info/sub.php?dep=2" alt="상품 소개">상품 소개</a></li>
+					<li><a href="/bbs/board.php?dep=n" alt="공지사항">공지사항</a></li>
+					<li><a  href="/member/login.php?target=/member/mypage.php" alt="마이페이지">마이페이지</a></li>
+					<li><a href="/bbs/board.php?dep=e" alt="이벤트">이벤트</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!--head end-->
+	
+	<!--main_contents start-->
+	<div id="main_contents" style="position:relative;margin-top:-45px">
+		<style>
+	.sub_wrap {display:flex;}
+	.side_banner {width:205px;flex:1;text-align: center}
+	.sub_contents {width:1176px; flex:6;margin-left:40px}
+	.sub_contents h1 {font-size:26px;padding-bottom:20px; font-weight:400}
+	
+	.sub_contents .notice_title {background-color:#f8f8f8;line-height:44px;padding-left:15px;margin-bottom:10px}
+	.sub_contents .sub2_title {background-color:#f8f8f8;line-height:28px;padding:20px 30px;margin-bottom:30px;text-align:justify; }
+	
+	/* notice list */
+	.sub_contents .notice_table {border-top:2px solid #111;}
+	.sub_contents .notice_table th {font-size:13px; font-weight:600; }
+	.sub_contents .notice_table tr th,.sub_contents .notice_table tr td {line-height: 44px;border-bottom:1px solid #d9d9d9;text-align:center;}
+	.sub_contents .notice_table tr td:nth-child(2) {text-align:left; white-space:nowrap; overflow: hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
+	/*.sub_contents .notice_table tr td:nth-child(2):after {content:url(http://image.mrlotto.co.kr/new.jpg);position: relative;width:100px; height:100px;top:3px;left:15px;}*/
+	.sub_contents .notice_table tr td:nth-child(2) span {margin-left:15px;color:#2a539a; }
+	.sub_contents .notice_table tr td:nth-child(2) span img{vertical-align:middle;margin-top:-4px;margin-right:5px;}
+	.sub_contents .notice_table tr td:nth-child(4), .sub_contents .notice_table tr td:nth-child(5) {letter-spacing: 0}
+	
+	.sub_contents .notice_table .notice_button {margin-top:10px; text-align: right}
+	.sub_contents .notice_table .notice_button .search {border-radius: 4px; padding:7px 12px; border:1px solid #111;font-size:13px;margin-left:3px;background-color: #fff;font-weight:400}
+	.sub_contents .notice_table .notice_button .board_button {border-radius: 4px;width:100px;height:35px;font-size:13px;color:#fff;background: rgb(42,83,154);background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border:none;font-weight:300; margin-left:15px;cursor: pointer}
+	.sub_contents .notice_table .notice_button input {width:230px; height:35px; padding-left:10px;border:1px solid #d9d9d9;border-radius: 4px;margin-bottom:3px;font-size: 13px;}
+	.sub_contents .notice_table .paging ul {overflow: hidden;}
+	.sub_contents .notice_table .paging a {color: inherit;text-decoration: none;float:left;border:1px solid #d9d9d9;margin-left:-1px;width:30px;height:30px;text-align: center}
+	.sub_contents .notice_table .paging {width:205px;margin:0 auto;margin-top:30px}
+	.sub_contents .notice_table .paging li:first-child a {border-radius: 4px 0px 0px 4px;margin-left:0;color:#d9d9d9}
+	.sub_contents .notice_table .paging li:last-child a {border-radius: 0px 4px 4px 0px;color:#d9d9d9}
+	.sub_contents .notice_table .paging a:hover {color:#2a539a !important;font-weight:500; border-bottom:2px solid #2a539a}
+
+	/* notice write */
+	.sub_contents .notice_write_table {border-top:2px solid #111;}
+	.sub_contents .notice_write_table input, .sub_contents .notice_write_table textarea {border:none; font-size:15px;line-height:28px; width:80%;}
+	.sub_contents .notice_write_table textarea {min-height: 300px; min-width: 900px; padding:20px 0}
+	.sub_contents .notice_write_table th {font-size:13px; font-weight:600;border-right:1px solid #d9d9d9}
+	.sub_contents .notice_write_table tr th,.sub_contents .notice_write_table tr td {line-height: 44px;border-bottom:1px solid #d9d9d9;text-align:center;vertical-align: middle}
+	.sub_contents .notice_write_table tr td:nth-child(2) {text-align:left; white-space:nowrap; overflow: hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
+	/*.sub_contents .notice_table tr td:nth-child(2):after {content:url(http://image.mrlotto.co.kr/new.jpg);position: relative;width:100px; height:100px;top:3px;left:15px;}*/
+	.sub_contents .notice_write_table tr td {padding-left:20px}
+	.sub_contents .notice_write_table tr td:nth-child(2) span {margin-left:15px;color:#2a539a; }
+	.sub_contents .notice_write_table tr td:nth-child(2) span img{vertical-align:middle;margin-top:-4px;margin-right:5px;}
+	
+	.sub_contents .notice_write_table .notice_button {margin-top:10px; text-align: right}
+	.sub_contents .notice_write_table .notice_button .search {border-radius: 4px;width:50px;height:35px; border:1px solid #111;font-size:13px;margin-left:3px;background-color: #fff}
+	.sub_contents .notice_write_table .notice_button .board_button {border-radius: 4px;width:100px;height:35px;font-size:13px;color:#fff;background: rgb(42,83,154);background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border:none;font-weight:300;cursor: pointer}
+	.sub_contents .notice_write_table .notice_button .board_cancel_button {border-radius: 4px;font-size:13px;color:#fff;background-color:#d9d9d9;border:none;font-weight:300; margin-left:5px; cursor: pointer;padding:7px 20px;}
+	
+	/* notice modify */
+	.sub_contents .notice_modify_table {border-top:2px solid #111;}
+	.sub_contents .notice_modify_table input, .sub_contents .notice_modify_table textarea {border:none; font-size:15px;line-height:28px; width:80%}
+	.sub_contents .notice_modify_table textarea {min-height: 300px; min-width: 900px; padding:20px 0}
+	.sub_contents .notice_modify_table th {font-size:13px; font-weight:600;border-right:1px solid #d9d9d9}
+	.sub_contents .notice_modify_table tr th,.sub_contents .notice_modify_table tr td {line-height: 44px;border-bottom:1px solid #d9d9d9;text-align:center;vertical-align: middle}
+	.sub_contents .notice_modify_table tr td:nth-child(2) {text-align:left; white-space:nowrap; overflow: hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;}
+	/*.sub_contents .notice_table tr td:nth-child(2):after {content:url(http://image.mrlotto.co.kr/new.jpg);position: relative;width:100px; height:100px;top:3px;left:15px;}*/
+	.sub_contents .notice_modify_table tr td {padding-left:20px}
+	.sub_contents .notice_modify_table tr td:nth-child(2) span {margin-left:15px;color:#2a539a; }
+	.sub_contents .notice_modify_table tr td:nth-child(2) span img{vertical-align:middle;margin-top:-4px;margin-right:5px;}
+	
+	.sub_contents .notice_modify_table .notice_button {margin-top:10px; text-align: right}
+	.sub_contents .notice_modify_table .notice_button .search {border-radius: 4px;width:50px;height:35px; border:1px solid #111;font-size:13px;margin-left:3px;background-color: #fff}
+	.sub_contents .notice_modify_table .notice_button .board_button {border-radius: 4px;width:100px;height:35px;font-size:13px;color:#fff;background: rgb(42,83,154);background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border:none;font-weight:300;}
+	.sub_contents .notice_modify_table .notice_button .board_cancel_button {border-radius: 4px;width:100px;height:35px;font-size:13px;color:#fff;background-color:#d9d9d9;border:none;font-weight:300; margin-left:5px}
+	
+	/* notice view */
+	.notice_table .notice_contents {width:1015px;margin:0 auto;text-align: left;margin-top:35px; margin-bottom:35px; overflow: hidden}
+	.notice_table .notice_contents .board_button {border-radius: 4px;width:100px;height:35px;font-size:13px;color:#fff;background: rgb(42,83,154);background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border:none;font-weight:300; margin-top:15px;cursor: pointer; float:right}
+	.notice_table .notice_img {background-color: #f8f8f8; margin-top:20px}
+	
+	
+	
+	/* event list */
+	.sub_contents .event_title {background-color:#f8f8f8;line-height:44px;padding-left:15px;margin-bottom:10px}
+	.sub_contents .event_table {border-top:2px solid #111;}
+	.sub_contents .event_table th {font-size:13px; font-weight:600; }
+	.sub_contents .event_table tr th,.sub_contents .event_table tr td {line-height: 44px;border-bottom:1px solid #d9d9d9;text-align:center;}
+	.sub_contents .event_table tr td:first-child {padding-top:15px}
+	.sub_contents .event_table tr td:nth-child(2) {text-align:left; white-space:nowrap; overflow: hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;vertical-align: middle}
+	/*.sub_contents .notice_table tr td:nth-child(2):after {content:url(http://image.mrlotto.co.kr/new.jpg);position: relative;width:100px; height:100px;top:3px;left:15px;}*/
+	.sub_contents .event_table .event_txt h3 {font-size:22px; color:#111; font-weight: 500}
+	.sub_contents .event_table .event_txt p {text-align:left; white-space:nowrap; overflow: hidden;text-overflow:ellipsis;-o-text-overflow:ellipsis;vertical-align: middle;width:575px;padding-bottom:40px}
+	.sub_contents .event_table .event_txt span.event_date {color:#2a539a; float: right;padding-right:30px;font-weight:400}
+	.sub_contents .event_table .event_txt span.event_date_end {color:#d9d9d9; float: right;padding-right:30px;font-weight:400}
+	.sub_contents .event_table .notice_button {margin-top:10px; text-align: right}
+	.sub_contents .event_table .notice_button .search {border-radius: 4px;width:50px;height:35px; border:1px solid #111;font-size:13px;margin-left:3px;background-color: #fff}
+	.sub_contents .event_table .notice_button .board_button {border-radius: 4px;width:100px;height:35px;font-size:13px;color:#fff;background: rgb(42,83,154);background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border:none;font-weight:300; margin-left:15px}
+	.sub_contents .event_table .notice_button input {width:230px; height:35px; padding-left:10px;border:1px solid #d9d9d9;border-radius: 4px;margin-bottom:3px;font-size: 13px;}
+	.sub_contents .event_table tr td:first-child {position: relative}
+	.sub_contents .event_table tr td .event_end {position: absolute;top:15px; left:36px; width:451px; height:200px; background-color: #111;opacity: 0.75;}
+	.sub_contents .event_table tr td .event_end span {color:#fff;opacity: 1;position: absolute;top:75px;left:160px;font-size:28px;}
+	
+	.sub_contents .event_table .paging ul {overflow: hidden;}
+	.sub_contents .event_table .paging a {color: inherit;text-decoration: none;float:left;border:1px solid #d9d9d9;margin-left:-1px;width:30px;height:30px;text-align: center}
+	.sub_contents .event_table .paging {width:205px;margin:0 auto;margin-top:30px}
+	.sub_contents .event_table .paging li:first-child a {border-radius: 4px 0px 0px 4px;margin-left:0;color:#d9d9d9}
+	.sub_contents .event_table .paging li:last-child a {border-radius: 0px 4px 4px 0px;color:#d9d9d9}
+	.sub_contents .event_table .paging a:hover {color:#2a539a !important;font-weight:500; border-bottom:2px solid #2a539a}
+	
+	
+	.sub_contents .event_table .event_button {margin-top:10px; text-align: right}
+	.sub_contents .event_table .event_button .search {border-radius: 4px;width:50px;height:35px; border:1px solid #111;font-size:13px;margin-left:3px;background-color: #fff;padding:7px 10px !important;font-weight:400}
+	.sub_contents .event_table .event_button .board_button {border-radius: 4px;width:100px;height:35px;font-size:13px;color:#fff;background: rgb(42,83,154);background: linear-gradient(0deg, rgba(42,83,154,1) 0%, rgba(41,104,213,1) 100%);border:none;font-weight:300; margin-left:15px;cursor: pointer; }
+	.sub_contents .event_table .event_button input {width:230px; height:35px; padding-left:10px;border:1px solid #d9d9d9;border-radius: 4px;margin-bottom:3px;font-size: 13px;}
+	
+	.side_label {border:1px solid #d9d9d9;border-top:2px solid #111;}
+	.side_label ul li {border-bottom:1px solid #d9d9d9;padding-bottom:20px} 
+	.side_label ul li:last-child {border:none}
+</style>
+
+
+	
+	<!--sub title start-->
+	<div class="sub_wrap">
+		<div class="side_banner">
+			<a href="/info/sub.php?dep=2"><img src="http://image.mrlotto.co.kr/sub_side_banner.jpg"></a>
+			<div class="side_label">
+				<ul>
+					<li>
+						<a href="javascript:;"  onclick="window.open('http://image.mrlotto.co.kr/quality.jpg','','width=584,height=814,scrollbars=no,top=30,left=30');">
+						<img src="http://image.mrlotto.co.kr/emblem1.png" style="width:90%;margin:15px 0;padding:10px 10px 0 10px;">
+						</a>
+						<p>믿고 이용할 수 있는<br><span style="font-weight:500">서비스 품질 책임제</span></p></li>
+						<li>
+						<a href="javascript:;"  onclick="window.open('http://image.mrlotto.co.kr/guarantee.jpg','','width=584,height=856,scrollbars=no,top=30,left=30');">
+						<img src="http://image.mrlotto.co.kr/emblem2.png" style="width:70%;padding:20px 10px 10px 10px;">
+						</a>
+						<p>신뢰를 우선으로 하는<br><span style="font-weight:500">환불 보증제</span></p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="sub_contents">
+		
+		
+					<h1>이벤트</h1>
+			<div>
+				<div class="event_title">미스터 로또씨 이벤트 게시판 입니다.</div>
+				<div class="notice_write_table">
+					<table cellpadding="0" cellspacing="0" border="0" width="100%">
+						<col width="200px">
+						<col width="976px">
+						<tr>
+							<th>글 제목</th>
+							<td>미스터로또씨 룰렛 이벤트</td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td><style>
+.land4_button {max-width:800px;width:100%;height:50%;padding-top:17.3%;position: absolute;text-align:center;z-index: 999}
+.land4_rull {width:70%;margin:0 auto;background: url('http://mrlotto.co.kr/land/img/land4-bg3.png') top center no-repeat;background-size: contain;position: relative;}
+.land4_rull td {vertical-align: middle;text-align: center;padding:5.5%}
+.txt {margin-top:-10%;background: url('http://mrlotto.co.kr/land/img/land4-bg5.png') center; background-size: cover;}
+.txt img {margin-top:5%; padding:10% 7%; box-sizing: border-box}
+.pin {max-width:800px;width:100%;height:45%;padding-top:17.3%;position: absolute;text-align:center;z-index: 99}
+.pin img {width:5%}
+@media (max-width:768px){
+.land4_button {padding-top:27.8%}
+.pin {width:100%;margin:0 auto;text-align:center; margin-top:-8px;padding-top:0}
+.ok_bt {width:55%; text-align: center !important;margin:0 auto !important}
+}
+@media (min-width:769px) and (max-width:1024px){
+.land4_button {padding-top:27%;}
+.pin {width:100%;margin:0 auto;text-align:center; margin-top:-10px;padding-top:0}
+}
+@media (min-width:1025px) and (max-width:1800px){
+.land4_button {width:100%;margin:0 auto;text-align:center; margin-top:225px;padding-top:0;}
+.pin {width:100%;margin:0 auto;text-align:center; margin-top:-20px;padding-top:0}
+}
+@media (min-width:1801px){
+.land4_button {width:100%;margin:0 auto;text-align:center; margin-top:225px;padding-top:0;}
+.pin {width:100%;margin:0 auto;text-align:center; margin-top:-20px;padding-top:0}
+}
+.db input {width:70%;display: block;margin: 0 auto;padding:3% 0 3% 3%;border:1px solid #111;font-size:0.8rem;margin-bottom:1%;border-radius:5px;}
+.db .ok_bt {text-align: center;margin:5% 0 8% 0}
+.db a {display: inline-block;margin: 0 auto}
+</style>
+</head>
+<script type="text/javascript" src="http://js.mrlotto.co.kr/pc/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="http://js.mrlotto.co.kr/pc/jQueryRotateCompressed.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+phone_check();
+var para = document.location.href.split("?");
+
+var vPage = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname;
+if(para.length==2){
+	vPage = vPage+"?"+para[para.length-1];
+} else {
+	vPage = vPage;
+}
+$("#create2").on("click",function(){
+	var lgurl = "/land/land_p.php";
+	var etc;
+	if($("#etc").val()){
+		etc = $("#etc").val();
+	}
+	var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+	var lgurl = "/land/land_p.php";
+	var etc;
+	if($("#etc").val()){
+		etc = $("#etc").val();
+	}
+	if($.trim($("#uname2").val()).length==0){
+		var alt = '이름을 기입해주세요';
+		alert(alt);
+		$("#uname2").focus();
+		return false;
+	}
+	var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+	
+	
+	if($.trim($("#cellnum2").val()).length==0){
+		var alt = '연락처를 기입해주세요!!';
+		alert(alt);
+		$("#cellnum2").val("");
+		$("#cellnum2").focus();
+		return false;
+	}
+	
+	var trn_num2 = $.trim($("#cellnum2").val()).replace(/-/gi,'');
+	var trn_num3 = $.trim($("#cellnum3").val()).replace(/-/gi,'');
+	
+	if(trn_num3.length<3){
+		var alt = '연락처를 다시 기입해주세요!!!~';
+		alert(alt);
+		$("#cellnum3").val("");
+		$("#cellnum3").focus();
+		return false;
+	}
+	var form_data = {
+		tel		:	$.trim($("#cellnum").val())+$.trim($("#cellnum2").val())+$.trim($("#cellnum3").val()),
+		name	:	$.trim($("#uname2").val()),
+		page	:	vPage,	
+		etc		:	etc,
+		mode	:	"land_ins"
+	};
+	
+	$.ajax({
+		type	:	"POST",
+		url		:	lgurl,
+		data : form_data,
+		dataType : "json",
+		async: false,
+		cache: false,
+		success : function(data){
+			if(data['status']=="0"){
+				alert('번호받기가 신청되었습니다.');
+				$("#cellnum2").val("");
+				$("#cellnum3").val("");
+				$("#uname2").val("");
+			} else {
+				alert('이미 전화번호가 등록되어있습니다.');
+				$("#cellnum2").val("");
+				$("#cellnum3").val("");
+				$("#uname2").val("");
+			}
+			
+		},
+		error: function(request, status, error) {
+			console.log("code:"+request.status+"n"+"message:"+request.responseText+"n"+"error:"+error);
+		}
+	});
+	return false;
+});
+
+$("#create").on("click",function(){
+	var lgurl = "/land/land_p.php";
+	var etc;
+	if($("#etc").val()){
+		etc = $("#etc").val();
+	}
+	var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+	if(check.test($.trim($("#tel").val()))){
+		var alt = '연락처를 정확히 기입해주세요';
+		$("#tel").val("");
+		$("#tel").focus();
+		return false;
+	}
+	if($.trim($("#uname").val()).length==0){
+		var alt = '이름을 기입해주세요';
+		alert(alt);
+		$("#uname").focus();
+		return false;
+	}
+	if($.trim($("#tel").val()).length==0){
+		var alt = '연락처를 기입해주세요';
+		alert(alt);
+		$("#tel").val("");
+		$("#tel").focus();
+		return false;
+	}
+	
+	var trn_num = $.trim($("#tel").val()).replace(/-/gi,'');
+	if(trn_num.length<10){
+		var alt = '연락처를 다시 기입해주세요';
+		alert(alt);
+		$("#tel").val("");
+		$("#tel").focus();
+		return false;
+	}
+	
+	var form_data = {
+		tel		:	$.trim($("#tel").val()),
+		name	:	$.trim($("#uname").val()),
+		page	:	vPage,	
+		etc		:	etc,
+		mode	:	"land_ins"
+	};
+	
+	$.ajax({
+		type	:	"POST",
+		url		:	lgurl,
+		data : form_data,
+		dataType : "json",
+		async: false,
+		cache: false,
+		success : function(data){
+			if(data['status']=="0"){
+				alert('번호받기가 신청되었습니다.');
+				$("#tel").val("");
+				$("#uname").val("");
+			} else {
+				alert('이미 전화번호가 등록되어있습니다..');
+				$("#tel").val("");
+				$("#uname2").val("");
+			}
+			
+		},
+		error: function(request, status, error) {
+			console.log("code:"+request.status+"n"+"message:"+request.responseText+"n"+"error:"+error);
+		}
+	});
+	return false;
+});
+});
+function phone_check(){
+
+$("#tel").on('keydown',function(e){
+	var trn_num = $(this).val().replace(/-/gi,'');
+	$(this).val($(this).val().replace(/[^0-9]/g,"") );
+
+	var k = e.keyCode;
+	if(trn_num.length >= 11 && ((k >= 48 && k <=126) || (k >= 12592 && k <= 12687 || k==32 || k==229 || (k>=45032 && k<=55203)) ))
+	{
+		e.preventDefault();
+	}	
+}).on('blur',function(){
+
+	if($.trim($(this).val())=='') return;
+	var trn_num = $(this).val().replace(/-/gi,'');
+	if(trn_num != null && trn_num != ''){
+		if(trn_num.length==11 || trn_num.length==10){
+			var rep_ctn = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
+			if(rep_ctn.test(trn_num)){
+				trn_num = trn_num.replace(/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?([0-9]{3,4})-?([0-9]{4})$/, "$1-$2-$3"); 
+
+				$(this).val(trn_num);
+			} else {
+				alert("유효하지 않은 전화번호 입니다!!.");
+				$(this).val("");
+				$(this).focus();
+				return false;
+			}
+		}
+	}else {
+		alert("유효하지 않은 전화번호 입니다!!.");
+		$(this).val("");
+		$(this).focus();
+		return false;
+	}
+	
+});
+$("#cellnum2").on('keydown',function(e){
+	var trn_num = $(this).val().replace(/-/gi,'');
+	$(this).val($(this).val().replace(/[^0-9]/g,"") );
+
+	var k = e.keyCode;
+	if(trn_num.length >= 11 && ((k >= 48 && k <=126) || (k >= 12592 && k <= 12687 || k==32 || k==229 || (k>=45032 && k<=55203)) ))
+	{
+		e.preventDefault();
+	}	
+}).on('blur',function(){
+
+	if($.trim($(this).val())=='') return;
+	var trn_num = $(this).val().replace(/-/gi,'');
+	if(trn_num != null && trn_num != ''){
+		if(trn_num.length==11 || trn_num.length==10){
+			var rep_ctn = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
+			if(rep_ctn.test(trn_num)){
+				trn_num = trn_num.replace(/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?([0-9]{3,4})-?([0-9]{4})$/, "$1-$2-$3"); 
+
+				$(this).val(trn_num);
+			} else {
+				alert("유효하지 않은 전화번호 입니다!!.");
+				$(this).val("");
+				$(this).focus();
+				return false;
+			}
+		}
+	}else {
+		alert("유효하지 않은 전화번호 입니다!!.");
+		$(this).val("");
+		$(this).focus();
+		return false;
+	}
+	
+});
+
+
+$("#cellnum3").on('keydown',function(e){
+	var trn_num = $(this).val().replace(/-/gi,'');
+	$(this).val($(this).val().replace(/[^0-9]/g,"") );
+
+	var k = e.keyCode;
+	if(trn_num.length >= 11 && ((k >= 48 && k <=126) || (k >= 12592 && k <= 12687 || k==32 || k==229 || (k>=45032 && k<=55203)) ))
+	{
+		e.preventDefault();
+	}	
+}).on('blur',function(){
+
+	if($.trim($(this).val())=='') return;
+	var trn_num = $(this).val().replace(/-/gi,'');
+	if(trn_num != null && trn_num != ''){
+		if(trn_num.length==11 || trn_num.length==10){
+			var rep_ctn = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
+			if(rep_ctn.test(trn_num)){
+				trn_num = trn_num.replace(/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?([0-9]{3,4})-?([0-9]{4})$/, "$1-$2-$3"); 
+
+				$(this).val(trn_num);
+			} else {
+				alert("유효하지 않은 전화번호 입니다!!.");
+				$(this).val("");
+				$(this).focus();
+				return false;
+			}
+		}
+	}else {
+		alert("유효하지 않은 전화번호 입니다!!.");
+		$(this).val("");
+		$(this).focus();
+		return false;
+	}
+	
+});	
+}
+</script>
+<script type="text/javascript">
+window.onload = function(){
+	var pArr = ["1개월","꽝","3개월","꽝","1개월","꽝","3개월","꽝"];
+	$("#result_view").hide();
+		$('#start_btn').click(function(){
+		rotation();
+	});	
+	function rotation(){
+		$("#image2").rotate({
+		  angle:0, 
+		  animateTo:360 * 3 +6,
+		  center: ["50%", "50%"],
+		  easing: $.easing.easeInOutElastic,
+		  callback: function(){ 
+				var n = $(this).getRotateAngle();
+				endAnimate(n);
+			},
+		  duration:5000
+	   });
+	}
+	function randomize($min, $max){
+		return Math.floor(Math.random() * ($max - $min + 1)) + $min;
+	}
+	function endAnimate($n){
+		var n = $n;
+		var real_angle = n%360;
+		var part = Math.floor(real_angle/45);
+		var gb,imgs;
+		if(part==0){
+			gb= 0;
+			imgs = "http://mrlotto.co.kr/land/img/cong1.jpg";
+			$("#etc").val("1개월쿠폰");
+		} else {
+			gb = part;
+			imgs = "http://mrlotto.co.kr/land/img/cong1-1.jpg";
+			$("#etc").val("3개월쿠폰");
+
+		}
+		$("#result_view").show();
+		$("#views").attr("src",imgs);
+		//console.log(part+"||"+pArr[gb]+"||"+gb+"||"+6);
+	}
+};
+</script>
+
+<body style="max-width:800px; margin:0 auto;position: relative">
+	<div style="max-width:800px;background: url('http://mrlotto.co.kr/land/img/land4-bg4.jpg'); background-size: 100%">
+		<div><img src="http://mrlotto.co.kr/land/img/land4-img1-1008.png" style="width:100%"></div>
+		<div style="position: absolute;z-index: 99;max-width: 800px"><img src="http://mrlotto.co.kr/land/img/land4-bg2.png" style="width:100%"></div>
+		<div class="land4_button" style="max-width:800px;text-align: center"><a href="javascript:;" id="start_btn"><img src="http://mrlotto.co.kr/land/img/land4-bt.png" style="width:15%"></a></div>
+		<table class="land4_rull" cellpadding="0" cellspacing="0" border="0">
+			<tr>
+				<td style="text-align: center;padding-left:30px;border-bottom:none"><img src="http://mrlotto.co.kr/land/img/land4-img3.png" style="width:100%" id="image2"></td>
+			</tr>
+		<div class="pin" style="max-width:800px"><img src="http://mrlotto.co.kr/land/img/land4-pin.png"></div>
+		</table>
+	</div>
+	<div class="txt" style="max-width:800px;">
+		<img src="http://mrlotto.co.kr/land/img/land4-img4-1008.jpg" style="width:100%">
+	</div>
+	<div style="max-width:800px;">
+	<img src="http://mrlotto.co.kr/land/img/land4-txt.jpg" style="width:100%">
+	</div>
+	<div style="max-width:800px;margin:0 auto">
+		<div style="box-shadow:0px 0px 10px;max-width:800px;background-color: #fff;position:absolute;top:30%;z-index: 99999;" id="result_view">
+			<div style="padding:5% 7%;text-align: center"><img id="views"></div>
+			<div style="background-color:#f8f8f8;padding:2% 7%" class="db">
+				<img src="http://mrlotto.co.kr/land/img/cong2.jpg" style="width:100%">
+				<input type="hidden" id="etc" name="etc">
+				<input type="text" placeholder="이름" name="uname" id="uname"> 
+				<input type="text" placeholder="연락처" name="tel" id="tel">
+				<div class="ok_bt"><a href="javascript:;" id="create"><img src="http://mrlotto.co.kr/land/img/ok_button-1008.jpg" style="width:100%"></a></div>
+			</div>
+		</div>
+	</div>
+	</td>
+						</tr>
+												<tr>
+							<th>기한</th>
+							<td>2018/10/15 ~ 2018/10/31</td>
+						</tr>
+					</table>
+					<div class="notice_button"><!--button button class="board_button">글쓰기</button--><button button class="board_cancel_button" onclick="location.href='/bbs/board.php?dep=e&page=1'">목록으로</button></div>
+				</div>
+			</div>
+		</div>
+		<!--sub contents end-->
+	</div>
+	<!--sub title end-->
+
+
+		</div>
+		
+			<!--footer start-->
+			<div id="footer">
+				<ul>
+					<li></li>
+					<li><a href="javascript:;"  onclick="window.open ('/agree/join_1.php','','width=600,height=857,scrollbars=no,top=30,left=30');">이용약관</a></li>
+					<li><a href="javascript:;"  onclick="window.open ('/agree/join_2.php','','width=600,height=857,scrollbars=no,top=30,left=30');">개인정보 처리방침</a></li>
+					<li><a href="javascript:;"  onclick="window.open ('/agree/join_3.php','','width=600,height=320,scrollbars=no,top=30,left=30');">마케팅 정보 수신 동의</a></li>
+					<li></li>
+				</ul>
+				<ul>
+					<li>미스터퀀트 주식회사</li>
+					<li>TEL : 1811-7335</li>
+					<li>FAX : 02-2067-3090</li>
+					<li>대표이사 : 조정윤</li>
+					<li>개인정보책임관리자 : 조정윤</li>
+					<li>사업자등록번호 : 547-88-01224</li>
+					<li>COPYRIGHT  ⓒ 2018 Mr.quant All rights reserved.</li>
+				</ul>
+			</div>
+			<!--footer end-->
+	</body>
+</html>

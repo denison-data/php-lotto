@@ -1,0 +1,259 @@
+<?
+$_pp_e = 0;
+$_pp_s = 0;
+
+include($_SERVER[DOCUMENT_ROOT].'inc/func/common.php');
+include(BASE_DIR.'inc/html/head_test.html');
+
+$cur_seq = getCurSeq();
+$_WIN = getSeqRank($cur_seq-5, $cur_seq, 'desc');
+
+$_BRO = getBrod($cur_seq-3, $cur_seq, 'desc');
+
+$_BBS = getBbsList(0,4,'n','desc');
+
+$code = $_SESSION['code'];
+$rs = ordrGoods($code,'','asc');
+
+
+
+if(count($rs)==0){
+	$product = "일반사용자";
+	$limit_day = "탈퇴시";
+	$next_product = "적용상품 없음";
+} else {
+	
+	$product = $rs[0]['Good_name']."".$rs[0]['Title1'];
+	if($rs[0]['Start_Date']){
+		$ing = "이용중";
+		$limit_day = date("y.m.d", strtotime($rs[0]['Finish_Date']))." 까지";
+	} else {
+		$ing = "이용전";
+		$limit_day = "문자서비스 시작전";
+	}
+	
+	if(count($rs)==1){
+		$next_product = "적용상품 없음";
+	} else {
+
+		$next_product = $rs[1]['Good_name']."".$rs[1]['Title1'];
+	}
+}
+
+?>
+
+		<ul style="margin-top:-40px">
+			<li>
+				<div id="wrapper">
+					<div class="slider-wrapper theme-default">
+						<div id="slider" class="nivoSlider">
+							<a href="/bbs/board_v.php?dep=e&page=1&uid=13" >
+							<img src="http://image.mrlotto.co.kr/main_banner5.jpg"></a>
+
+							<a href="/bbs/board_v.php?dep=e&page=1&uid=9" >
+							<img src="http://image.mrlotto.co.kr/main_banner4.jpg"></a>
+							<img src="http://image.mrlotto.co.kr/main_banner.jpg">
+							<a href="/info/sub.php?dep=1" >
+							<img src="http://image.mrlotto.co.kr/main_banner2.jpg">
+							</a>
+						</div>
+					</div>
+				</div>
+			</li>
+			<!--login start-->
+			<li>
+				<?
+				if(!$_SESSION[userid]){
+				?>
+
+				<form method="post" name="form1" id="form1">
+				<input type="hidden" name="mode" value="logins">
+				<div class="main_login">
+					<input type="text" class="main_login_input_id" placeholder="아이디를 입력하세요" name="user_id" id="user_id">
+					<input type="password" class="main_login_input_pw" placeholder="패스워드를 입력하세요" name="pwd" id="pwd">
+					<span class="id_check"><input type="checkbox" id="login_id_check"><label for="id_check">&nbsp;아이디 저장</label></span>
+					<span class="id_pw_find"><a href="/member/find.php">아이디 / 비밀번호 찾기</a></span>
+					<a class="main_login_bt" name="로그인" href="javascript:;" id="login_ck">로그인</a>
+					<div class="main_login_bt2">
+						<a class="main_join_bt" name="회원가입" href="/member/join.php" >회원가입</a>
+						<a class="main_naver_login_bt" name="네이버 로그인"  href="javascript:;" id="naver_id_login">네이버 로그인</a>
+					</div>
+				</div>
+				
+				</form>
+
+				<?
+				} else {
+				?>	
+				<div class="main_login_after">
+					<div class="login_name"><a href="/member/mypage_mix.php"><?=$_SESSION['nickname']?></a>님</div>
+					<div class="login_item_info">
+						<span class="login_item"><?=$product?></span><span><?=$ing?></span>
+						<span class="login_item_date">만료일 : <?=$limit_day?><!--18년 10월 2일---><a class="extend" href="/info/sub.php?dep=2" >기간 연장</a></span>
+					</div>
+					<div class="login_item_next">다음 적용 상품 : <?=$next_product?><!--골드 회원권 1년제---></div>
+					<div class="main_login_after_bt">
+						<a class="login_after_bt1" name="내 조합 내역" href="/member/mypage.php">내 조합 내역</a>
+						<a class="login_after_bt2" name="쿠폰 등록" href="/member/mycoupon2.php">쿠폰 등록</a>
+					</div>
+					<div class="main_login_after_bt2">
+						<a class="login_after_bt3" name="회원정보 수정" href="/member/modify.php">회원정보 수정</a>
+						<a class="login_after_bt4" name="로그아웃" id="logout" style="cursor:pointer" >로그아웃</a>
+					</div>
+				</div>	
+				<?
+				}
+				?>
+			</li>
+			<!--login end-->
+		</ul>
+
+		<ul>
+			<!--icon start-->
+			<li>
+				<table cellpadding="0" cellspacing="0" border="0" width="100%" class="main_icon">
+					<tr>
+						<td><img src="http://image.mrlotto.co.kr/main_icon1.jpg"></td>
+						<td class="sp"><a href="/info/sub1_stats.php?sub=2"><p>번호별 통계</p><span>기간별로 당첨번호<br>출현횟수 빈도수 확인</span></a></td>
+						<td><img src="http://image.mrlotto.co.kr/main_icon6.jpg"></td>
+						<td class="sp"><a href="/info/sub1_stats.php?sub=3"><p>색상 통계</p><span>회차별로 당첨번호<br>색상 확인</span></a></td>
+						<td><img src="http://image.mrlotto.co.kr/main_icon2.jpg"></td>
+						<td class="sp"><a href="/info/sub1_stats.php?sub=4"><p>구간별 출현횟수</p><span>구간대별 당첨번호<br>색상 확인</span></a></td>
+						<td><img src="http://image.mrlotto.co.kr/main_icon3.jpg"></td>
+						<td class="sp"><a href="/info/sub1_stats.php?sub=5"><p>기간별 미출현 번호</p><span>기간별로 한번도<br>출현하지 않은 번호 확인</span></a></td>
+						<td><img src="http://image.mrlotto.co.kr/main_icon4.jpg"></td>
+						<td class="sp"><a href="/info/sub1_stats.php?sub=6"><p>홀짝 통계</p><span>회차별 홀짝 비율 및<br>번호합 확인</span></a></td>
+						<td><img src="http://image.mrlotto.co.kr/main_icon5.jpg"></td>
+						<td class="sp"><a href="/info/sub1_stats.php?sub=7"><p>연속번호 출현</p><span>회차별 연속번호<br>출현횟수 확인</span></a></td>
+					</tr>
+				</table>
+			</li>
+			<!--icon end-->
+		</ul>
+
+		<ul style="margin-top:50px">
+			<li>
+				<div class="product_list">
+					<ul>
+						<li><a href="/info/sub.php?dep=2">프리미엄 2년제<span>30개 조합 제공</span></a></li>
+						<li><a href="/info/sub.php?dep=2#premium1">프리미엄 1년제<span>30개 조합 제공</span></a></li>
+						<li><a href="/info/sub.php?dep=2#premium2">골드 2년제<span>20개 조합 제공</span></a></li>
+					</ul>
+					<ul>
+						<li><a href="/info/sub.php?dep=2#premium2">골드 1년제<span>20개 조합 제공</span></a></li>
+						<li><a href="/info/sub.php?dep=2#silver1">실버 2년제<span>10개 조합 제공</span></a></li>
+						<li><a href="/info/sub.php?dep=2#silver2">실버 1년제<span>10개 조합 제공</span></a></li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<div><a href="http://www.mrlotto.co.kr/bbs/board_v.php?dep=e&page=1&uid=12"><img src="http://image.mrlotto.co.kr/event-banner.jpg"></a></div>
+				<!--
+				<div class="product_one">
+					<a href="/bbs/board_v.php?dep=e&page=1&uid=12">서비스 가입하러 가기</a>
+				</div>--->
+			</li>
+		</ul>
+
+		<!-- 당첨번호 DB sort 들어감--->
+		<ul>
+			<!--lotto start-->
+			<li>
+				<div class="main_lotto">
+					<ul>
+						<li class="main_lotto_label_bg" style="position:absolute;top:0"></li>
+						<li>
+							<div id="content">
+								<div id="content_inner">
+									<ul id="slides1">
+										<? foreach($_WIN as $seq => $arr) { ?>
+										<li>
+											<div><span><?=$seq?></span>&nbsp;회<span><?=str_replace('-', '.', $arr[date]);?> 추첨</span></div>
+											<div class="main_lotto_ball">
+												<? foreach(getBallField() as $field) { ?>
+												<img src="http://image.mrlotto.co.kr/ball/lotto_ball_<?=$arr[$field]?>.jpg">
+												<? } ?>												
+												<img src="http://image.mrlotto.co.kr/main_lotto_plus.jpg" class="plus">
+												<img src="http://image.mrlotto.co.kr/ball/lotto_ball_<?=$arr[bonus];?>.jpg">
+											</div>
+											<div class="main_lotto_win"><span>1등 당첨자 : <span class="main_lotto_person"><?=number_format(@$arr[rank_1_count])?></span>명</span><span style="float:right">당첨금액 : <span class="main_lotto_money"><?=number_format(@$arr[rank_1_price])?></span></span></div>
+										</li>
+										<? } ?>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li></li>
+					</ul>
+				</div>
+			</li>
+			<!--lotto end-->
+
+			<!--notice start-->
+			
+			<li>
+				<div class="main_notice">
+					<h2>공지사항</h2><a href="/bbs/board.php?dep=n"><img src="http://image.mrlotto.co.kr/more.jpg"></a>
+				</div>
+				<div class="main_notice_list">
+					<table cellpadding="0" cellspacing="0" width="100%">
+						<col width="745px">
+						<col width="107px">
+						<?
+						if(sizeof($_BBS)!=0) {
+							$ind = 0;
+							foreach($_BBS as $bsq => $barr){
+							?>
+							<tr>
+								<th <? if($ind==0){?> class="main_notice_1" <? } ?>><a href="/bbs/board_v.php?dep=n&uid=<?=$barr['uid']?>"><?=$barr['title']?></a></td>
+								<td <? if($ind==0){?> class="main_notice_1" <? } ?>><?=date("y.m.d",$barr['reg_datetime'])?></td>
+							</tr>
+							<?
+								$ind++;
+							}
+						} else {
+						?>
+						<tr>
+							<th colspan="2" class="main_notice_1">게시된 내용이 조회되지 않습니다.</th>
+						</tr>
+						<? 
+						} ?>
+					</table>
+				</div>
+			</li>
+			<!--notice end-->
+		</ul>
+		<ul>
+			<li class="bottom_contents">
+				
+				<ul class="main_video">
+					<h2 style="display: inline">SBS 추첨방송</h2>
+					<select name="vseq" onchange="javascript:brod_img(this.value);">
+						<? foreach($_BRO as $bseq => $brarr) { ?>
+						<option value="<?=$brarr['seq']?>">[<?=$brarr['seq']?>회] <?=date("y.m.d",strtotime($brarr['date']))?> 토요일</option>
+						<? } ?>
+					</select>
+					<li id="brod_img" style="cursor:pointer"><img src="http://image.mrlotto.co.kr/main_video.jpg"></li>
+				</ul>
+				<ul class="main_cc">
+					<h2>고객센터</h2>
+					<li>1811-7335</li>
+					<span>평일&nbsp;&nbsp;09:00 ~ 18:00 (점심시간 12:30 ~ 13:30 제외)<br></span>
+					<span>주말 및 공휴일 고객센터 휴무</span>
+				</ul>
+				<ul class="main_bank">
+					<h2>무통장 입금계좌</h2>
+					<span><img src="http://image.mrlotto.co.kr/ibk.jpg"></span>
+					<li class="bank_number">664-019737-01-020</li>
+					<li class="bank_name">예금주 : 미스터퀀트(주)</li>
+					<li class="bank_txt">무통장입금 하신 경우 입금자확인을 위해 미스터로또씨로 꼭 연락주시기 바랍니다.</li>
+				</ul>
+			</li>
+			<!--
+			<li class="main_bottom_banner"><a href="/info/sub.php?dep=2"><img src="http://image.mrlotto.co.kr/main_bottom_banner.jpg"></a></li>--->
+		</ul>
+<?
+dbClose($dbc);
+include(BASE_DIR.'inc/html/foot.html');
+
+?>

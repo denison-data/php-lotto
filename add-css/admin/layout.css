@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+/* layout */
+#wrap {width:100%; min-width:1250px;}
+#header {width:100%; min-width:1250px; height:68px; background:#00acbd; border-top:1px solid #00909e; border-bottom:1px solid #00909e;}
+#contents {width:100%; min-width:1250px;}
+#footer {clear:both; width:100%; min-width:1250px; height:110px; background:#f9f9f9; border-top:1px solid #e8e8e8;}
+
+
+/* 컨텐츠 */
+#contents .area {padding:60px 50px 150px 50px;}
+
+
+/* 푸터 */
+#footer p {margin:18px 0 0 50px;}
